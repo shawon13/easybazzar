@@ -1,0 +1,14 @@
+/* Hide all nested ul by default */
+ul ul {
+    display: none;
+}
+
+/* Show the immediate nested ul when hovering the parent li */
+ul>li:hover>ul {
+    display: block;
+}
+
+/* Show the next nested ul when hovering the immediate nested ul */
+ul ul>li:hover>ul {
+    display: block;
+}
