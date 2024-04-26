@@ -101,7 +101,7 @@ const Home = () => {
     };
     const [flashSales, setFlashSales] = useState([])
     useEffect(() => {
-        fetch('https://api.escuelajs.co/api/v1/products')
+        fetch('https://easybazzar-server.vercel.app/flashsales')
             .then(res => res.json())
             .then(data => setFlashSales(data))
     }, [])
@@ -132,23 +132,27 @@ const Home = () => {
             </section >
             <section className='py-8'>
                 <div className='container mx-auto px-4'>
-                    <h4>FlashSale:{flashSales.length}</h4>
-                    <div>
-                        <div>
-                            <h4>on sale now</h4>
+                    <h4 className='text-neutral-500 text-2xl font-normal mb-3'>FlashSale:{flashSales.length}</h4>
+                    <div className='bg-white'>
+                        <div className='flex justify-between items-center py-2 h-16 px-6 mb-7 border border-gray-300 border-t-0 border-l-0 border-r-0'>
+                            <div className='flex'>
+                                <div>
+                                    <h4 className='text-base font-medium capitalize text-red-500 mr-7'>on sale now</h4>
+                                </div>
+                                <div>
+                                    <h4 className='text-base font-medium capitalize text-black'>ending in</h4>
+                                </div>
+                            </div>
+                            <div>
+                                <Link className='text-red-500 border border-red-500 py-3 px-3 uppercase font-normal text-sm'>shop more</Link>
+                            </div>
                         </div>
                         <div>
-                            <h4>ending in</h4>
-                        </div>
-                        <div>
-                            <Link>shop more</Link>
-                        </div>
-                    </div>
-                    <div>
-                        <div className='flex'>
-                            {
-                                flashSales.slice(25, 31).map(sale => <FlashSale key={sale.id} sale={sale}></FlashSale>)
-                            }
+                            <div className='flex'>
+                                {
+                                    flashSales.slice(13, 19).map(sale => <FlashSale key={sale.id} sale={sale}></FlashSale>)
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
