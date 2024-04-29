@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const FlashSaleCard = ({ flashsale }) => {
     const { image, name, original_price, current_price, discount } = flashsale;
     return (
-        <div className='bg-white hover:shadow-md m-1.5 rounded'>
+        <div className='bg-white hover:shadow-lg m-1.5 rounded transition-all'>
             <img className='w-full h-48' src={image} alt="" />
             <div className='p-2 pb-4'>
                 <h4 className='text-black'>{name.slice(0, 35)}...</h4>

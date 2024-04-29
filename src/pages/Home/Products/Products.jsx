@@ -1,13 +1,14 @@
 import React from 'react';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
-const FlashSale = ({ sale }) => {
-    const { image, name, original_price, current_price, discount } = sale;
+
+const Products = ({ product }) => {
+    const { image, name, original_price, current_price, discount } = product;
     return (
-        <Link className='hover:shadow-lg w-52 mx-2 transition-all'>
+        <Link className='hover:shadow-lg bg-white transition-all'>
             <img className='w-full h-48' src={image} alt="" />
             <div className='p-2'>
-                <h4 className='text-black'>{name.slice(0, 40)}...</h4>
+                <h4 className='text-black'>{name.slice(0, 35)}...</h4>
                 <div style={{ marginLeft: '-5px' }} className='flex items-center'>
                     <TbCurrencyTaka style={{ marginRight: "-2px" }} className='orangeColor text-2xl' />
                     <p className='orangeColor text-lg font-normal'>{current_price}</p>
@@ -21,7 +22,7 @@ const FlashSale = ({ sale }) => {
                 </div>
             </div>
         </Link>
-    );
+    )
 };
 
-export default FlashSale;
+export default Products;

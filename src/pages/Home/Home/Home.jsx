@@ -4,9 +4,10 @@ import Banner from '../Banner/Banner';
 import Slider from 'react-slick';
 import Benefits from '../Benefits/Benefits';
 import Categories from '../Categories/Categories';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import FlashSale from '../FlashSale/FlashSale';
 import Timer from '../FlashSales/Timer/Timer';
+import Products from '../Products/Products';
 const Home = () => {
     const sliders = [
         {
@@ -105,7 +106,8 @@ const Home = () => {
         fetch('https://easybazzar-server.vercel.app/flashsales')
             .then(res => res.json())
             .then(data => setFlashSales(data))
-    }, [])
+    }, []);
+    const products = useLoaderData();
     return (
         <>
             <section className='mt-6'>
@@ -159,6 +161,19 @@ const Home = () => {
                     </div>
                 </div>
             </section >
+            <section className='pb-6'>
+                <div className="container mx-auto px-4">
+                    <h4 className='text-neutral-500 text-2xl font-normal mb-3 capitalize'>Just For You</h4>
+                    <div className='grid grid-cols-6 gap-3'>
+                        {
+                            products.slice(0, 24).map(product => <Products key={product.id} product={product}></Products>)
+                        }
+                    </div>
+                    <div className='mt-8 text-center'>
+                        <button style={{ borderColor: '#f85606', borderRadius: '0px !important' }} className='orangeColor outline-none rounded-none border w-6/12 uppercase font-normal text-sm'>load more</button>
+                    </div>
+                </div>
+            </section>
         </>
     );
 };
