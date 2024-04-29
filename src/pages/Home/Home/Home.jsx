@@ -6,6 +6,7 @@ import Benefits from '../Benefits/Benefits';
 import Categories from '../Categories/Categories';
 import { Link } from 'react-router-dom';
 import FlashSale from '../FlashSale/FlashSale';
+import Timer from '../FlashSales/Timer/Timer';
 const Home = () => {
     const sliders = [
         {
@@ -107,7 +108,7 @@ const Home = () => {
     }, [])
     return (
         <>
-            <section>
+            <section className='mt-6'>
                 <div className='container mx-auto px-4 flex'>
                     <div className='w-1/4'>
                         <Categories />
@@ -121,30 +122,31 @@ const Home = () => {
                     </div>
                 </div>
             </section >
-            <section className='py-7'>
+            <section className='pt-7'>
                 <div className='container mx-auto px-4'>
-                    <div className='px-4 py-3 rounded-md flex items-center justify-between transition bg-rose-100 hover:bg-rose-200'>
+                    <div className='px-4 py-3 rounded-md flex items-center justify-between transition bg-rose-50 hover:bg-rose-100'>
                         {
                             benefits.map(benefit => <Benefits key={benefit.id} benefit={benefit}></Benefits>)
                         }
                     </div>
                 </div>
             </section >
-            <section className='py-8'>
+            <section className='py-6'>
                 <div className='container mx-auto px-4'>
-                    <h4 className='text-neutral-500 text-2xl font-normal mb-3'>FlashSale:{flashSales.length}</h4>
-                    <div className='bg-white'>
+                    <h4 className='text-neutral-500 text-2xl font-normal mb-3'>FlashSale</h4>
+                    <div className='bg-white pb-7'>
                         <div className='flex justify-between items-center py-2 h-16 px-6 mb-7 border border-gray-300 border-t-0 border-l-0 border-r-0'>
                             <div className='flex'>
                                 <div>
-                                    <h4 className='text-base font-medium capitalize text-red-500 mr-7'>on sale now</h4>
+                                    <h4 className='text-base font-medium capitalize orangeColor mr-7'>on sale now</h4>
                                 </div>
-                                <div>
-                                    <h4 className='text-base font-medium capitalize text-black'>ending in</h4>
+                                <div className='flex items-center'>
+                                    <h4 className='text-base font-medium text-black mr-2'>Ending in</h4>
+                                    <Timer duration={12 * 60 * 60 * 1000} />
                                 </div>
                             </div>
                             <div>
-                                <Link className='text-red-500 border border-red-500 py-3 px-3 uppercase font-normal text-sm'>shop more</Link>
+                                <Link to='/flashsales' style={{ borderColor: '#f85606' }} className='orangeColor border py-3 px-3 uppercase font-normal text-sm'>shop more</Link>
                             </div>
                         </div>
                         <div>

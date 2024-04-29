@@ -18,6 +18,10 @@
   .sub-category-li:hover .sub-category-icon {
     margin-right: -5px;
   }
+
+  .orangeColor {
+    color: #f85606;
+  }
 }
 
 
