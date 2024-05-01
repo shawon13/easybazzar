@@ -8,6 +8,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import FlashSale from '../FlashSale/FlashSale';
 import Timer from '../FlashSales/Timer/Timer';
 import Products from '../Products/Products';
+import Brands from '../Brands/Brands';
 const Home = () => {
     const sliders = [
         {
@@ -170,8 +171,14 @@ const Home = () => {
                         }
                     </div>
                     <div className='mt-8 text-center'>
-                        <button style={{ borderColor: '#f85606', borderRadius: '0px !important' }} className='orangeColor outline-none rounded-none border w-6/12 uppercase font-normal text-sm'>load more</button>
+                        <button style={{ borderColor: '#f85606', borderRadius: '0px !important' }} className='orangeColor outline-none rounded-none border w-1/4 uppercase font-normal text-sm'>load more</button>
                     </div>
+                </div>
+            </section>
+            <section className='py-6 border border-l-0 border-r-0 mb-4'>
+                <div className='container mx-auto px-4'>
+                    <h4 className='text-center uppercase text-black text-3xl font-bold'>Shop our Top brands</h4>
+                    <Brands />
                 </div>
             </section>
         </>
