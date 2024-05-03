@@ -1,9 +1,11 @@
 import React from 'react';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
+import Ratingstar from './Ratingstar';
 
 const Products = ({ product }) => {
-    const { image, name, original_price, current_price, discount } = product;
+    console.log(product)
+    const { image, name, original_price, current_price, discount, star } = product;
     return (
         <Link className='hover:shadow-lg bg-white transition-all'>
             <img className='w-full h-48' src={image} alt="" />
@@ -20,6 +22,7 @@ const Products = ({ product }) => {
                     </div>
                     <span className='text-black'>{discount}</span>
                 </div>
+                <Ratingstar rating={star} />
             </div>
         </Link>
     )

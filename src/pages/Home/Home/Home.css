@@ -28,3 +28,19 @@ button:focus,
 button:focus-visible {
     outline: 0px auto -webkit-focus-ring-color;
 }
+
+.hr {
+    border-top: 1px solid #e7e3e3;
+    width: 40%;
+    left: 0;
+    bottom: 50%;
+    position: absolute;
+}
+
+.hr-two {
+    border-top: 1px solid #e7e3e3;
+    width: 40%;
+    right: 0;
+    bottom: 50%;
+    position: absolute;
+}
