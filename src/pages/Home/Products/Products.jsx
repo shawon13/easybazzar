@@ -4,10 +4,9 @@ import { Link } from 'react-router-dom';
 import Ratingstar from './Ratingstar';
 
 const Products = ({ product }) => {
-    console.log(product)
-    const { image, name, original_price, current_price, discount, star } = product;
+    const { image, name, original_price, current_price, discount, star, id } = product;
     return (
-        <Link className='hover:shadow-lg bg-white transition-all'>
+        <Link to={`/product/${id}`} className='hover:shadow-lg bg-white transition-all'>
             <img className='w-full h-48' src={image} alt="" />
             <div className='p-2'>
                 <h4 className='text-black'>{name.slice(0, 35)}...</h4>

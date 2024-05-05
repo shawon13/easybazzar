@@ -1,0 +1,11 @@
+.quantity-btn:hover .quantity-icon {
+    color: white !important;
+}
+
+.bg-sky {
+    background-color: #2abbe8;
+}
+
+.bg-orange {
+    background-color: #f57224;
+}

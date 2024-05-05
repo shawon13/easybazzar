@@ -9,6 +9,7 @@ import FlashSale from '../FlashSale/FlashSale';
 import Timer from '../FlashSales/Timer/Timer';
 import Products from '../Products/Products';
 import Brands from '../Brands/Brands';
+const productLoad = 18;
 const Home = () => {
     const sliders = [
         {
@@ -109,8 +110,15 @@ const Home = () => {
             .then(data => setFlashSales(data))
     }, []);
     const products = useLoaderData();
+
+    const [next, setNext] = useState(productLoad);
+    const handleLoadMore = () => {
+        setNext(next + productLoad)
+    }
+
     return (
         <>
+            {/* category and slider  section*/}
             <section className='mt-6'>
                 <div className='container mx-auto px-4 flex'>
                     <div className='w-1/4'>
@@ -125,6 +133,7 @@ const Home = () => {
                     </div>
                 </div>
             </section >
+            {/* features section*/}
             <section className='pt-7'>
                 <div className='container mx-auto px-4'>
                     <div className='px-4 py-3 rounded-md flex items-center justify-between transition bg-rose-50 hover:bg-rose-100'>
@@ -134,6 +143,7 @@ const Home = () => {
                     </div>
                 </div>
             </section >
+            {/* flashSales section */}
             <section className='py-6'>
                 <div className='container mx-auto px-4'>
                     <h4 className='text-neutral-500 text-2xl font-normal mb-3'>FlashSale</h4>
@@ -162,16 +172,23 @@ const Home = () => {
                     </div>
                 </div>
             </section >
+            {/* Product section */}
             <section className='pb-6'>
                 <div className="container mx-auto px-4">
                     <h4 className='text-neutral-500 text-2xl font-normal mb-3 capitalize'>Just For You</h4>
                     <div className='grid grid-cols-6 gap-3'>
                         {
-                            products.slice(0, 24).map(product => <Products key={product.id} product={product}></Products>)
+                            products.slice(0, next).map(product => <Products key={product.id} product={product}></Products>)
                         }
                     </div>
                     <div className='mt-8 text-center'>
-                        <button style={{ borderColor: '#f85606', borderRadius: '0px !important' }} className='orangeColor outline-none rounded-none border w-1/4 uppercase font-normal text-sm'>load more</button>
+
+                        {
+
+                            next < products.length && <button onClick={handleLoadMore} style={{ borderColor: '#f85606', borderRadius: '0px !important' }} className='orangeColor outline-none rounded-none border w-1/4 uppercase font-normal text-sm'>load more</button>
+                        }
+
+
                     </div>
                 </div>
             </section>
