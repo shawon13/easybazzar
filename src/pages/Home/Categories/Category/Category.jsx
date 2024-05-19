@@ -4,9 +4,7 @@ import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom';
 import Subcategory from '../Subcategory/Subcategory';
 const Category = ({ category }) => {
-    // console.log(category)
     const { name, img } = category.category;
-    // const { sub_name } = category.sub_categories.sub_category;
     return (
         <>
             <li className='flex items-center py-1.5 text-gray-400 relative	cursor-pointer category-li hover:text-black '>

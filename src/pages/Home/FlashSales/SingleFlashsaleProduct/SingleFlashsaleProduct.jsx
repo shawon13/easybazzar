@@ -1,36 +1,25 @@
 import React, { useState } from 'react';
-import './SingleProduct.css'
 import { Link, useLoaderData } from 'react-router-dom';
+import SingleRatingStar from '../../Products/SingleProduct/SingleRatingStar';
 import { TbCoinTaka, TbCurrencyTaka } from 'react-icons/tb';
 import { FaMinus, FaPlus } from 'react-icons/fa';
-import SingleRatingStar from './SingleRatingStar';
 import delivery from '../../../../assets/courier.png'
-import { addToDb } from '../../../../utilities/fakedb';
-const SingleProduct = () => {
-    const product = useLoaderData();
-    // console.log(product)
-    const { current_price, discount, image, name, original_price, rating, star, quantity } = product;
-    const [productQuantity, setProductQuantity] = useState(quantity);
+const SingleFlashsaleProduct = () => {
+    const flashsale = useLoaderData();
+
+    const { current_price, discount, image, name, original_price, rating, star } = flashsale;
+    const [quantity, setQuantity] = useState(1)
     const inQuantity = () => {
-        if (productQuantity < 5) {
-            setProductQuantity(productQuantity + 1);
+        if (quantity < 5) {
+            setQuantity(quantity + 1)
         }
+
     }
     const deQuantity = () => {
-        if (productQuantity > 1) {
-            setProductQuantity(productQuantity - 1);
+        if (quantity > 1) {
+            setQuantity(quantity - 1)
         }
     }
-    const [buy, setBuy] = useState([])
-    const handleBuyNow = (product) => {
-        let newBuy = [];
-        newBuy = [...buy, product]
-        setBuy(newBuy)
-        console.log(newBuy)
-        addToDb(product.id)
-    }
-
-
     return (
         <section className='py-12'>
             <div className="container mx-auto px-4">
@@ -70,8 +59,8 @@ const SingleProduct = () => {
                                     </button>
                                     <input
                                         type="text"
-                                        value={productQuantity}
-                                        className="text-center w-10"
+                                        value={quantity}
+                                        className="text-center w-10 outline-none"
                                     />
                                     <button onClick={inQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn">
                                         <FaPlus className='transition-all text-gray-400 text-sm quantity-icon' />
@@ -79,7 +68,7 @@ const SingleProduct = () => {
                                 </div>
                             </div>
                             <div className='mt-8'>
-                                <Link onClick={() => handleBuyNow(product)} to='/buynow' className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
+                                <Link to='/buynow' className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
                                 <button className='text-white bg-orange capitalize font-normal px-20 py-3 rounded-none'>Add to cart</button>
                             </div>
                         </div>
@@ -129,4 +118,4 @@ const SingleProduct = () => {
     );
 };
 
-export default SingleProduct;
+export default SingleFlashsaleProduct;

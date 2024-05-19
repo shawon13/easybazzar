@@ -1,13 +1,15 @@
 import React from 'react';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
-const FlashSale = ({ sale }) => {
-    const { image, name, original_price, current_price, discount, id } = sale;
+import Ratingstar from '../Home/Products/Ratingstar';
+
+const ChildCategoryCard = ({ childcategory }) => {
+    const { image, name, original_price, current_price, discount, star, id } = childcategory;
     return (
-        <Link to={`flashsale/${id}`} className='hover:shadow-lg w-52 mx-2 transition-all'>
+        <Link to={`/product/${id}`} className='hover:shadow-lg bg-white transition-all w-64'>
             <img className='w-full h-48' src={image} alt="" />
             <div className='p-2'>
-                <h4 className='text-black'>{name.slice(0, 40)}...</h4>
+                <h4 className='text-black'>{name.slice(0, 35)}...</h4>
                 <div style={{ marginLeft: '-5px' }} className='flex items-center'>
                     <TbCurrencyTaka style={{ marginRight: "-2px" }} className='orangeColor text-2xl' />
                     <p className='orangeColor text-lg font-normal'>{current_price}</p>
@@ -19,9 +21,10 @@ const FlashSale = ({ sale }) => {
                     </div>
                     <span className='text-black'>{discount}</span>
                 </div>
+                <Ratingstar rating={star} />
             </div>
         </Link>
     );
 };
 
-export default FlashSale;
+export default ChildCategoryCard;

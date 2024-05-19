@@ -84,6 +84,19 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.bg-sky {
+  background-color: #2abbe8;
+}
+
+.bg-orange {
+  background-color: #f85606;
+}
+
+.w {
+  width: 18px;
+  height: 18px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

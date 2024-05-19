@@ -1,0 +1,23 @@
+@media screen and (max-width:1199px) {
+    .register-width {
+        width: 45% !important;
+    }
+}
+
+@media screen and (max-width:991px) {
+    .register-width {
+        width: 55% !important;
+    }
+}
+
+@media screen and (max-width:766px) {
+    .register-width {
+        width: 80% !important;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .register-width {
+        width: 95% !important;
+    }
+}

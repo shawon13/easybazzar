@@ -3,11 +3,11 @@ import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom';
 import Childcategory from '../Childcategory/Childcategory';
 const Subcategory = ({ subcategory }) => {
-    const { sub_name } = subcategory.sub_category;
+    const { sub_name, category_id } = subcategory.sub_category;
     return (
         <>
             <li className='cursor-pointer py-1.5'>
-                <Link className='flex justify-between text-gray-400 hover:text-black'>
+                <Link to={`/categories/${category_id}`} className='flex justify-between text-gray-400 hover:text-black'>
                     <span className='capitalize text-sm sub-category-title transition-all'>{sub_name}</span>
                     <span>
                         <ChevronRightIcon className="h-4 w-4 sub-category-icon transition-all" />

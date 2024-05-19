@@ -3,7 +3,7 @@ import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 
 const FlashSaleCard = ({ flashsale }) => {
-    const { image, name, original_price, current_price, discount } = flashsale;
+    const { id, image, name, original_price, current_price, discount } = flashsale;
     return (
         <div className='bg-white hover:shadow-lg m-1.5 rounded transition-all'>
             <img className='w-full h-48' src={image} alt="" />
@@ -21,7 +21,7 @@ const FlashSaleCard = ({ flashsale }) => {
                     <span className='text-white bg-red-500 text-sm'>{discount}</span>
                 </div>
                 <div className='mt-4 text-center'>
-                    <Link style={{ borderColor: '#f85606' }} className='orangeColor border py-1.5 px-2 uppercase font-normal text-xs text-center'>Buy Now</Link>
+                    <Link to={`/flashsale/${id}`} style={{ borderColor: '#f85606' }} className='orangeColor border py-1.5 px-2 uppercase font-normal text-xs text-center'>Buy Now</Link>
                 </div>
             </div>
         </div>

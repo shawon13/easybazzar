@@ -1,0 +1,105 @@
+.login-title {
+    margin-top: 0px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.login-btn {
+    width: 100%;
+    background: rgba(255, 153, 0, 0.3);
+    border-radius: 5px;
+    padding: 15px;
+    border: 0px;
+    cursor: pointer;
+
+}
+
+button:hover {
+    border-color: #646cff00;
+}
+
+.login-btn:focus {
+    outline: none;
+}
+
+.position-relative {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.or {
+    margin: 0px auto;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    width: 10%;
+    border: 2px solid #f9f9f9
+}
+
+.or-hr {
+    border-top: 2px solid #f4f4f4;
+    width: 45%;
+    left: 0;
+    bottom: 45%;
+    position: absolute;
+}
+
+.or-hr-two {
+    border-top: 2px solid #f4f4f4;
+    width: 45%;
+    right: 0;
+    bottom: 45%;
+    position: absolute;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #f4f4f4;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    background: aliceblue;
+}
+
+.google-btn img {
+    width: 25px;
+}
+
+.google-btn span {
+    margin-left: 10px;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+@media screen and (max-width:1199px) {
+    .login-width {
+        width: 45% !important;
+    }
+}
+
+@media screen and (max-width:991px) {
+    .login-width {
+        width: 55% !important;
+    }
+}
+
+@media screen and (max-width:766px) {
+    .login-width {
+        width: 80% !important;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .login-width {
+        width: 95% !important;
+    }
+}
