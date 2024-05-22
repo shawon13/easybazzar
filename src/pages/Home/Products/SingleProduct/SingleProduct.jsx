@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './SingleProduct.css'
 import { Link, useLoaderData } from 'react-router-dom';
 import { TbCoinTaka, TbCurrencyTaka } from 'react-icons/tb';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import SingleRatingStar from './SingleRatingStar';
 import delivery from '../../../../assets/courier.png'
-import { addToDb } from '../../../../utilities/fakedb';
+import { BuyContext } from '../../../../context/BuynowContext';
+import { AddToCart } from '../../../../context/AddToCartContext';
 const SingleProduct = () => {
     const product = useLoaderData();
+
     // console.log(product)
     const { current_price, discount, image, name, original_price, rating, star, quantity } = product;
     const [productQuantity, setProductQuantity] = useState(quantity);
@@ -21,13 +23,15 @@ const SingleProduct = () => {
             setProductQuantity(productQuantity - 1);
         }
     }
-    const [buy, setBuy] = useState([])
-    const handleBuyNow = (product) => {
-        let newBuy = [];
-        newBuy = [...buy, product]
-        setBuy(newBuy)
-        console.log(newBuy)
-        addToDb(product.id)
+    // buy now function
+    const { buy, setBuy } = useContext(BuyContext);
+    const handleBuyNow = () => {
+        setBuy([...buy, product])
+    }
+    // add to cart function
+    const { cart, setCart } = useContext(AddToCart);
+    const handleAddToCart = () => {
+        setCart([...cart, product])
     }
 
 
@@ -65,7 +69,7 @@ const SingleProduct = () => {
                             <div className='flex items-center mt-4'>
                                 <span className='text-base text-gray-400 font-normal mr-10'>Quantity</span>
                                 <div className='flex'>
-                                    <button onClick={deQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn">
+                                    <button onClick={deQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
                                         <FaMinus className='transition-all text-gray-400 text-sm quantity-icon' />
                                     </button>
                                     <input
@@ -73,14 +77,14 @@ const SingleProduct = () => {
                                         value={productQuantity}
                                         className="text-center w-10"
                                     />
-                                    <button onClick={inQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn">
+                                    <button onClick={inQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
                                         <FaPlus className='transition-all text-gray-400 text-sm quantity-icon' />
                                     </button>
                                 </div>
                             </div>
                             <div className='mt-8'>
-                                <Link onClick={() => handleBuyNow(product)} to='/buynow' className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
-                                <button className='text-white bg-orange capitalize font-normal px-20 py-3 rounded-none'>Add to cart</button>
+                                <Link onClick={handleBuyNow} to='/buynow' className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
+                                <button onClick={handleAddToCart} className='text-white bg-orange capitalize font-normal px-20 py-3 rounded-none'>Add to cart</button>
                             </div>
                         </div>
                     </div>

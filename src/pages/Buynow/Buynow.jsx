@@ -1,43 +1,62 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { GoPlus } from 'react-icons/go';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
+import { BuyContext } from '../../context/BuynowContext';
 
 const Buynow = () => {
+    const { buy } = useContext(BuyContext);
+    console.log(buy)
     return (
         <section className='py-6'>
             <div className="container px-4 mx-auto">
                 <div className='flex'>
-                    <div style={{ width: '70%' }} className=' bg-white px-5 py-6 shadow-md rounded-md mr-5'>
-                        <div>
-                            <div>
-                                <div>
-                                    <img src="https://i.ibb.co/BV4VvZj/pic5.png" alt="" />
-                                    <div>
-                                        <h4>product</h4>
-                                        <span>discription</span>
+                    <div style={{ width: '70%' }} className=''>
+                        {
+                            buy.map(bp => {
+                                return <>
+                                    <div className='bg-white px-5 py-6 shadow-md rounded-md mr-5'>
+                                        <div className='flex items-center justify-between'>
+                                            <div className='flex'>
+                                                <img src={bp.image} className='w-16 h-16' alt="" />
+                                                <div className='ml-3'>
+                                                    <h4>{bp.name}</h4>
+                                                    <span className='text-sm text-gray-500'>No Brand</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span className='text-sm'>Qty:{bp.quantity}</span>
+                                            </div>
+                                            <div className='flex justify-between items-center'>
+                                                <div style={{ backgroundColor: '#F5F5F5' }} className='flex justify-between items-center px-1'>
+                                                    <div className='flex justify-between items-center text-xs line-through'>
+                                                        <TbCurrencyTaka className='text-base' />
+                                                        <span>{bp.original_price}</span>
+                                                    </div>
+                                                    <span className='ml-2 text-xs'>{bp.discount}</span>
+                                                </div>
+                                                <div className='flex items-center justify-between text-sm ml-2'>
+                                                    <TbCurrencyTaka className='text-base' />
+                                                    <span>{bp.current_price}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr className='my-3' />
+                                        <div className=''>
+                                            <div className='flex items-center justify-end text-base'>
+                                                <h4>item(s).subtotal:</h4>
+                                                <span className='flex items-center orangeColor'><TbCurrencyTaka />55</span>
+                                            </div>
+                                            <div className='flex items-center justify-end text-sm text-gray-500'>
+                                                <h4 className='capitalize'>saved</h4>
+                                                <span className='flex items-center'><TbCurrencyTaka />55</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <span>Qty:</span>
-                                </div>
-                                <div>
-                                    <div>
-                                        <h4>original taka</h4>
-                                        <span>Discount</span>
-                                    </div>
-                                    <div>
-                                        <h4>current balance</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-                            <div>
-                                <h4>item(s).subtotal:</h4>
-                                <h4>saved</h4>
-                            </div>
-                        </div>
+                                </>
+                            })
+                        }
                     </div>
                     <div style={{ width: '30%' }} className=' bg-white px-5 py-6 shadow-md rounded-md'>
                         <h4>Discount and Payment</h4>
