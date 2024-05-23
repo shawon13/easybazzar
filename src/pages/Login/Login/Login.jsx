@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css'
 import { Link } from 'react-router-dom';
 import { FaFacebookF, FaGooglePlusG } from 'react-icons/fa';
+import { FaRegEye } from 'react-icons/fa6';
+import { PiEyeClosedThin } from 'react-icons/pi';
 
 const Login = () => {
+    let [type, setType] = useState('password')
+    const handleType = () => {
+        if (type == 'password') {
+            setType('text')
+        }
+        else {
+            setType('password')
+        }
+    }
     return (
         <section className='py-10'>
             <div className='container mx-auto w-3/5 px-4'>
@@ -18,9 +29,12 @@ const Login = () => {
                                 <label className='block'>Email*</label>
                                 <input className='border w-full py-2.5 px-2.5' type="email" name="" id="" placeholder='Please enter your email' />
                             </div>
-                            <div>
+                            <div className='relative'>
                                 <label className='block'>Password*</label>
                                 <input className='border w-full py-2.5 px-2.5' type="password" name="" id="" placeholder='Please enter your password' />
+                                {
+                                    type == 'text' ? <FaRegEye onClick={handleType} className='absolute text-2xl top-9 right-3 cursor-pointer' /> : <PiEyeClosedThin onClick={handleType} className='absolute text-3xl top-8 right-3 cursor-pointer' />
+                                }
                             </div>
                             <div className='text-end mt-3'>
                                 <span className='text-xs font-normal cursor-pointer text-sky-900'>Reset Your Password</span>

@@ -7,12 +7,14 @@ import SingleRatingStar from './SingleRatingStar';
 import delivery from '../../../../assets/courier.png'
 import { BuyContext } from '../../../../context/BuynowContext';
 import { AddToCart } from '../../../../context/AddToCartContext';
+import { ProductQuantityContext } from '../../../../context/QuantityContext';
 const SingleProduct = () => {
     const product = useLoaderData();
 
     // console.log(product)
-    const { current_price, discount, image, name, original_price, rating, star, quantity } = product;
-    const [productQuantity, setProductQuantity] = useState(quantity);
+    const { current_price, discount, image, name, original_price, rating, star } = product;
+    //Product Quntity
+    const { productQuantity, setProductQuantity } = useContext(ProductQuantityContext);
     const inQuantity = () => {
         if (productQuantity < 5) {
             setProductQuantity(productQuantity + 1);

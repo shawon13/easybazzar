@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { MagnifyingGlassIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
+import { AddToCart } from '../../context/AddToCartContext';
 const Header = () => {
-
+    const { cart } = useContext(AddToCart)
 
 
 
@@ -32,9 +33,9 @@ const Header = () => {
                             <Link to='/login' className='px-6 py-2 rounded-md text-white bg-black'>Login</Link>
                             <Link to='/register' className=' ml-6 px-6 py-2 rounded-md text-white bg-black'>Sign Up</Link>
                             <span className='ml-6 relative'>
-                                <ShoppingCartIcon className='w-10 cursor-pointer' />
-                                <p className=' w-6 h-6 rounded-full bg-black text-white text-center absolute bottom-5 left-6'>
-                                    <span>0</span>
+                                <Link to='/cart' className='text-black'><ShoppingCartIcon className='w-10 cursor-pointer' /></Link>
+                                <p className=' w-6 h-6 rounded-full bg-black text-white text-center absolute bottom-6 left-7'>
+                                    <span className=''>{cart.length}</span>
                                 </p>
                             </span>
                         </div>

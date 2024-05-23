@@ -8,13 +8,19 @@ import { RouterProvider } from 'react-router-dom'
 import router from './Router/Routers.jsx'
 import BuynowContext from './context/BuynowContext.jsx';
 import AddToCartContext from './context/AddToCartContext.jsx';
+import QuantityContext from './context/QuantityContext.jsx';
+import AuthProvider from './Provider/AuthProvider.jsx';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BuynowContext>
       <AddToCartContext>
-        <RouterProvider router={router} />
+        <QuantityContext>
+          <AuthProvider>
+            <RouterProvider router={router} />
+          </AuthProvider>
+        </QuantityContext>
       </AddToCartContext>
     </BuynowContext>
   </React.StrictMode>,

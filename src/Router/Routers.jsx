@@ -10,6 +10,7 @@ import SingleFlashsaleProduct from "../pages/Home/FlashSales/SingleFlashsaleProd
 import SearchProduct from "../pages/SearchProduct/SearchProduct";
 import SubCategoryPage from "../pages/SubCategoryPage/SubCategoryPage";
 import ChildCategoryPage from "../pages/ChildCategoryPage/ChildCategoryPage";
+import Cart from "../pages/Cart/Cart";
 
 const router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
             {
                 path: '/searcheproduct',
                 element: <SearchProduct></SearchProduct>
+            },
+            {
+                path: '/cart',
+                element: <Cart></Cart>
             }
         ]
     }

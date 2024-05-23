@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
-import { GoPlus } from 'react-icons/go';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import { BuyContext } from '../../context/BuynowContext';
+import { AddToCart } from '../../context/AddToCartContext';
+import { ProductQuantityContext } from '../../context/QuantityContext';
 
 const Buynow = () => {
     const { buy } = useContext(BuyContext);
-    console.log(buy)
+    const { cart } = useContext(AddToCart);
+    const { productQuantity } = useContext(ProductQuantityContext);
     return (
         <section className='py-6'>
             <div className="container px-4 mx-auto">
@@ -26,7 +28,7 @@ const Buynow = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <span className='text-sm'>Qty:{bp.quantity}</span>
+                                                <span className='text-sm'>Qty:{productQuantity}</span>
                                             </div>
                                             <div className='flex justify-between items-center'>
                                                 <div style={{ backgroundColor: '#F5F5F5' }} className='flex justify-between items-center px-1'>
@@ -57,8 +59,52 @@ const Buynow = () => {
                                 </>
                             })
                         }
+                        {
+                            cart.map(cp => {
+                                return <>
+                                    <div className='bg-white px-5 py-6 shadow-md rounded-md mr-5 mb-5'>
+                                        <div className='flex items-center justify-between'>
+                                            <div className='flex'>
+                                                <img src={cp.image} className='w-16 h-16' alt="" />
+                                                <div className='ml-3'>
+                                                    <h4>{cp.name}</h4>
+                                                    <span className='text-sm text-gray-500'>No Brand</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span className='text-sm'>Qty:{productQuantity}</span>
+                                            </div>
+                                            <div className='flex justify-between items-center'>
+                                                <div style={{ backgroundColor: '#F5F5F5' }} className='flex justify-between items-center px-1'>
+                                                    <div className='flex justify-between items-center text-xs line-through'>
+                                                        <TbCurrencyTaka className='text-base' />
+                                                        <span>{cp.original_price}</span>
+                                                    </div>
+                                                    <span className='ml-2 text-xs'>{cp.discount}</span>
+                                                </div>
+                                                <div className='flex items-center justify-between text-sm ml-2'>
+                                                    <TbCurrencyTaka className='text-base' />
+                                                    <span>{cp.current_price}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr className='my-3' />
+                                        <div className=''>
+                                            <div className='flex items-center justify-end text-base'>
+                                                <h4>item(s).subtotal:</h4>
+                                                <span className='flex items-center orangeColor'><TbCurrencyTaka />55</span>
+                                            </div>
+                                            <div className='flex items-center justify-end text-sm text-gray-500'>
+                                                <h4 className='capitalize'>saved</h4>
+                                                <span className='flex items-center'><TbCurrencyTaka />55</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            })
+                        }
                     </div>
-                    <div style={{ width: '30%' }} className=' bg-white px-5 py-6 shadow-md rounded-md'>
+                    <div style={{ width: '30%' }} className=' bg-white px-5 py-6 shadow-md rounded-md h-96'>
                         <h4>Discount and Payment</h4>
                         <div className='mt-3'>
                             <div className='flex items-center justify-between'>
@@ -78,7 +124,7 @@ const Buynow = () => {
                         </div>
                         <hr className='my-4' />
                         <div>
-                            <h4 className='text-base font-normal text-black capitalize'>order summary</h4>
+                            <h4 className='text-xl font-medium text-black capitalize'>order summary</h4>
                             <div className='flex items-center justify-between my-2'>
                                 <h4 className='text-base font-normal text-black capitalize'>items Total</h4>
                                 <div className='flex items-center justify-between'>
@@ -100,8 +146,7 @@ const Buynow = () => {
                                     <span>55</span>
                                 </div>
                             </div>
-                            <span className='text-end w-full block text-sm text-gray-400'>VAT included,where applicable</span>
-                            <div className='text-center mt-4'>
+                            <div className='text-center mt-5'>
                                 <Link className='text-white bg-orange capitalize font-normal block w-full py-2 text-sm'>place order</Link>
                             </div>
                         </div>
