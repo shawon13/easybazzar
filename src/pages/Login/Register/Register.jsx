@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import './Register.css'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Provider/AuthProvider';
-import { RiEyeCloseLine } from 'react-icons/ri';
 import { FaRegEye } from 'react-icons/fa6';
 import { PiEyeClosedThin } from 'react-icons/pi';
 import { ToastContainer, toast } from 'react-toastify';

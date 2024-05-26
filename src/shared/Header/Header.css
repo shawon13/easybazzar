@@ -1,0 +1,33 @@
+.sub-menu-wrap {
+    transition: max-height 0.5s;
+}
+
+.inactive-menu {
+    max-height: 0px;
+    overflow: hidden;
+}
+
+.active-menu {
+    max-width: 400px;
+}
+
+.sub-menu {
+    background-color: #f9f9f9;
+}
+
+.menu-arrow {
+    font-size: 22px;
+    transition: transform 0.5s;
+}
+
+.sub-menu-link:hover .menu-arrow {
+    transform: translateX(5px);
+}
+
+.sub-menu-link:hover p {
+    font-weight: 700 !important;
+}
+
+.sub-menu-link {
+    cursor: pointer;
+}
