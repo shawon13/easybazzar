@@ -48,7 +48,7 @@ const Header = () => {
                                     <div onClick={() => setOpen(!open)} className='cursor-pointer ml-5 flex items-center'>
                                         <img src={user?.photoURL} className='w-14 h-14 rounded-full border' alt="" />
                                         <div className='mx-2'>
-                                            <h4>Hello, {user.fullName}</h4>
+                                            <h4>Hello, {user.displayName.slice(0, 6)}...</h4>
                                             <span>Orders & Account</span>
                                         </div>
                                         <IoIosArrowDown />
@@ -71,50 +71,50 @@ const Header = () => {
                                 </>
                             }
                             {/* Dropdown menu Start*/}
-                            <div className={`sub-menu-wrap z-10 absolute top-full right-20 w-80 ${open ? 'active-menu' : 'inactive-menu'}`}>
-                                <div className="sub-menu m-2.5 p-4 rounded-1">
-                                    <Link className='cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
+                            <div className={`sub-menu-wrap z-10 absolute top-20 right-10 w-80 ${open ? 'active-menu' : 'inactive-menu'}`}>
+                                <div className="sub-menu bg-slate-50 m-2.5 p-4 rounded shadow-md">
+                                    <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
                                             <BsEmojiSmile className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm'>Manage my account</p>
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>Manage my account</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
                                     </Link>
-                                    <Link className='cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
+                                    <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
 
                                             <LiaBoxSolid className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm'>my orders</p>
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>my orders</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
                                     </Link>
-                                    <Link className='cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
+                                    <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
                                             <FiHeart className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm'>my wishlist</p>
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>my wishlist</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
                                     </Link>
-                                    <Link className='cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
+                                    <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
                                             <MdOutlineStars className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm'>my reviews</p>
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>my reviews</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
                                     </Link>
-                                    <Link className='cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
+                                    <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
                                             <IoMdCloseCircleOutline className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm'>my Returns & Cancellations</p>
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>my Returns & Cancellations</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
                                     </Link>
-                                    <span onClick={handleLogOut} className='cursor-pointer justify-between flex items-center text-decoration-none m-2 fw-medium' style={{ color: '#525252' }}>
+                                    <span onClick={handleLogOut} className='sub-menu-link cursor-pointer justify-between flex items-center text-decoration-none m-2 fw-medium' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
                                             <HiOutlineArrowLeftStartOnRectangle className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm'>LogOut</p>
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>Logout</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
                                     </span>
                                 </div>
                             </div>

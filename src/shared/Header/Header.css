@@ -11,12 +11,8 @@
     max-width: 400px;
 }
 
-.sub-menu {
-    background-color: #f9f9f9;
-}
-
 .menu-arrow {
-    font-size: 22px;
+    font-size: 18px;
     transition: transform 0.5s;
 }
 
@@ -25,7 +21,7 @@
 }
 
 .sub-menu-link:hover p {
-    font-weight: 700 !important;
+    font-weight: 500 !important;
 }
 
 .sub-menu-link {

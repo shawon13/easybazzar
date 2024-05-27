@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './Login.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaFacebookF, FaGithub, FaGooglePlusG } from 'react-icons/fa';
 import { FaRegEye } from 'react-icons/fa6';
 import { PiEyeClosedThin } from 'react-icons/pi';
@@ -10,6 +10,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     let [type, setType] = useState('password')
+    const navigate = useNavigate()
+    const location = useLocation();
+    const from = location?.state?.from?.pathName || '/'
     const handleType = () => {
         if (type == 'password') {
             setType('text')
@@ -28,9 +31,11 @@ const Login = () => {
         loginUser(email, password)
             .then(result => {
                 const logUser = result.user;
+                console.log(logUser)
                 toast('Successfully login');
                 form.reset()
                 console.log(logUser)
+                navigate(from)
             })
             .catch(error => {
                 console.log(error.message)
