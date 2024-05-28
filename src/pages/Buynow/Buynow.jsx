@@ -18,7 +18,7 @@ const Buynow = () => {
                         {
                             buy.map(bp => {
                                 return <>
-                                    <div className='bg-white px-5 py-6 shadow-md rounded-md mr-5'>
+                                    <div className='bg-white px-5 py-6 shadow-md rounded-md mr-5 mb-5'>
                                         <div className='flex items-center justify-between'>
                                             <div className='flex'>
                                                 <img src={bp.image} className='w-16 h-16' alt="" />

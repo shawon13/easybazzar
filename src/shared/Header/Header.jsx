@@ -46,17 +46,17 @@ const Header = () => {
                             {
                                 user ? <>
                                     <div onClick={() => setOpen(!open)} className='cursor-pointer ml-5 flex items-center'>
-                                        <img src={user?.photoURL} className='w-14 h-14 rounded-full border' alt="" />
+                                        <img src={user?.photoURL} className='w-12 h-12 rounded-full border' alt="" />
                                         <div className='mx-2'>
-                                            <h4>Hello, {user.displayName.slice(0, 6)}...</h4>
-                                            <span>Orders & Account</span>
+                                            <h4 className='text-sm'>Hello, {user.displayName.slice(0, 10)}...</h4>
+                                            <span className='font-semibold text-base capitalize'>Orders & Account</span>
                                         </div>
                                         <IoIosArrowDown />
                                     </div>
                                     <span className='ml-6 relative'>
                                         <Link to='/cart' className='text-black'><ShoppingCartIcon className='w-10 cursor-pointer' /></Link>
-                                        <p className=' w-6 h-6 rounded-full bg-black text-white text-center absolute bottom-6 left-7'>
-                                            <span className=''>{cart.length}</span>
+                                        <p className=' w-5 h-5 rounded-full bg-black text-white absolute top-0 border-2 border-slate-100' style={{ top: '-3px', right: '-8px' }}>
+                                            <span className='text-xs absolute top-0' style={{ left: '5px' }}>{cart.length}</span>
                                         </p>
                                     </span>
                                 </> : <>
@@ -64,8 +64,8 @@ const Header = () => {
                                     <Link to='/register' className=' ml-6 px-6 py-2 rounded-md text-white bg-black'>Sign Up</Link>
                                     <span className='ml-6 relative'>
                                         <Link to='/cart' className='text-black'><ShoppingCartIcon className='w-10 cursor-pointer' /></Link>
-                                        <p className=' w-6 h-6 rounded-full bg-black text-white text-center absolute bottom-6 left-7'>
-                                            <span className=''>{cart.length}</span>
+                                        <p className=' w-5 h-5 rounded-full bg-black text-white absolute border-2 border-slate-100' style={{ top: '-3px', right: '-8px' }}>
+                                            <span className='text-xs absolute top-0' style={{ left: '5px' }}>{cart.length}</span>
                                         </p>
                                     </span>
                                 </>

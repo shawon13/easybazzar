@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './Register.css'
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import { FaRegEye } from 'react-icons/fa6';
 import { PiEyeClosedThin } from 'react-icons/pi';
@@ -18,6 +18,7 @@ const Register = () => {
             setType('password')
         }
     }
+    const navigate = useNavigate()
     const handleSignUP = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -54,6 +55,7 @@ const Register = () => {
                 console.log(regUser)
                 toast('Successfully Registered');
                 form.reset();
+                navigate('/')
                 updateUser(regUser, name, photoUrl)
                 emailVerification(regUser)
                     .then(() => {
@@ -61,7 +63,7 @@ const Register = () => {
                     })
             })
             .catch(error => {
-                console.log(error.message)
+                toast(error.message)
             })
     }
     return (

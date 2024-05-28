@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import './Login.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaFacebookF, FaGithub, FaGooglePlusG } from 'react-icons/fa';
@@ -12,7 +12,8 @@ const Login = () => {
     let [type, setType] = useState('password')
     const navigate = useNavigate()
     const location = useLocation();
-    const from = location?.state?.from?.pathName || '/'
+    console.log(location)
+    const from = location?.state?.from?.pathname || '/';
     const handleType = () => {
         if (type == 'password') {
             setType('text')
@@ -21,7 +22,7 @@ const Login = () => {
             setType('password')
         }
     }
-    const { loginUser } = useContext(AuthContext);
+    const { loginUser, resetPassword, googleLogin, facebookLogin, githubLogin } = useContext(AuthContext);
 
     const handleLogin = (event) => {
         event.preventDefault()
@@ -42,6 +43,33 @@ const Login = () => {
             })
         console.log(email, password)
     }
+    // handle forget password
+    const emailRef = useRef()
+    const handleResetPassword = () => {
+        const email = emailRef.current.value;
+        if (!email) {
+            toast('Please enter your email')
+        }
+        resetPassword(email)
+            .then(() => {
+                toast('Please Check your email.Password reset email sent!')
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    }
+    const handleFacebookLogin = () => {
+        facebookLogin();
+        navigate(from)
+    }
+    const handleGooleLogin = () => {
+        googleLogin();
+        navigate(from)
+    }
+    const handleGithubLogin = () => {
+        githubLogin();
+        navigate(from)
+    }
     return (
         <section className='py-10'>
             <div className='container mx-auto w-1/2 px-4'>
@@ -55,7 +83,7 @@ const Login = () => {
                         <form action="" onSubmit={handleLogin}>
                             <div className='mb-4'>
                                 <label className='block mb-1'>Email*</label>
-                                <input className='border w-full py-2.5 px-2.5 outline-0' type="email" name="email" id="" placeholder='Please enter your email' />
+                                <input className='border w-full py-2.5 px-2.5 outline-0' ref={emailRef} type="email" name="email" id="" placeholder='Please enter your email' />
                             </div>
                             <div className='relative'>
                                 <label className='block mb-1'>Password*</label>
@@ -65,7 +93,7 @@ const Login = () => {
                                 }
                             </div>
                             <div className='text-end'>
-                                <span className='text-xs font-normal cursor-pointer text-sky-900'>Reset Your Password</span>
+                                <span onClick={handleResetPassword} className='text-xs font-normal cursor-pointer text-sky-900'>Reset Your Password</span>
                             </div>
                             <div className='mt-3.5'>
                                 <button className='text-white bg-black uppercase font-normal w-full py-3' type="submit">Login</button>
@@ -77,13 +105,13 @@ const Login = () => {
                             <p className='or-hr-two mb-0'></p>
                         </div>
                         <div className='flex justify-center items-center mt-6'>
-                            <span style={{ backgroundColor: '#3b5998' }} className='rounded-full w-10 h-10 flex justify-center items-center mr-3 text-white cursor-pointer'>
+                            <span onClick={handleFacebookLogin} style={{ backgroundColor: '#3b5998' }} className='rounded-full w-10 h-10 flex justify-center items-center mr-3 text-white cursor-pointer'>
                                 <FaFacebookF className='text-xl' />
                             </span>
-                            <span style={{ backgroundColor: '#d34836' }} className='rounded-full w-10 h-10 flex justify-center items-center mr-3 text-white cursor-pointer'>
+                            <span onClick={handleGooleLogin} style={{ backgroundColor: '#d34836' }} className='rounded-full w-10 h-10 flex justify-center items-center mr-3 text-white cursor-pointer'>
                                 <FaGooglePlusG className='text-2xl' />
                             </span>
-                            <span className='rounded-full w-10 h-10 flex justify-center items-center bg-black text-white cursor-pointer'>
+                            <span onClick={handleGithubLogin} className='rounded-full w-10 h-10 flex justify-center items-center bg-black text-white cursor-pointer'>
                                 <FaGithub className='text-2xl' />
                             </span>
                         </div>

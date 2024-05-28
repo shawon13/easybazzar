@@ -11,11 +11,14 @@ import SearchProduct from "../pages/SearchProduct/SearchProduct";
 import SubCategoryPage from "../pages/SubCategoryPage/SubCategoryPage";
 import ChildCategoryPage from "../pages/ChildCategoryPage/ChildCategoryPage";
 import Cart from "../pages/Cart/Cart";
+import PrivetRoute from "./PrivetRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Main></Main>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: '/',
@@ -54,7 +57,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/buynow',
-                element: <Buynow></Buynow>
+                element: <PrivetRoute><Buynow></Buynow></PrivetRoute>
             },
             {
                 path: '/login',
@@ -70,7 +73,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/cart',
-                element: <Cart></Cart>
+                element: <PrivetRoute><Cart></Cart></PrivetRoute>
             }
         ]
     }
