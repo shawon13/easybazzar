@@ -8,6 +8,8 @@ import delivery from '../../../../assets/courier.png'
 import { BuyContext } from '../../../../context/BuynowContext';
 import { AddToCart } from '../../../../context/AddToCartContext';
 import { ProductQuantityContext } from '../../../../context/QuantityContext';
+import { toast } from 'react-toastify';
+import { addToDb } from '../../../../utilities/fakedb';
 const SingleProduct = () => {
     const product = useLoaderData();
 
@@ -33,7 +35,12 @@ const SingleProduct = () => {
     // add to cart function
     const { cart, setCart } = useContext(AddToCart);
     const handleAddToCart = () => {
-        setCart([...cart, product])
+        const exists = cart.find(pd => pd.id === product.id);
+        if (!exists) {
+            toast('Product already Add!')
+            setCart([...cart, product])
+            addToDb(product.id)
+        }
     }
 
 

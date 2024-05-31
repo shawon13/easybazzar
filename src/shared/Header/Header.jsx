@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './Header.css'
 import { MagnifyingGlassIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.png'
@@ -17,13 +17,26 @@ const Header = () => {
     const { cart } = useContext(AddToCart)
     const { user, logOut } = useContext(AuthContext)
     const [open, setOpen] = useState(false);
+    const menuRef = useRef();
     const handleLogOut = () => {
         logOut();
         setOpen(false);
-    }
+    };
+    useEffect(() => {
+        let handleOutSideClick = (e) => {
+            if (!menuRef.current.contains(e.target)) {
+                setOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleOutSideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutSideClick)
+        }
+    });
     return (
         <header className='bg-slate-100 py-3.5 shadow-md w-full'>
-            <div className="container mx-auto px-4 ">
+            <div className="container mx-auto px-4">
                 <nav className="flex items-center">
                     <div className='w-1/2'>
                         <Link to='/' className='flex items-center cursor-pointer'>
@@ -45,7 +58,7 @@ const Header = () => {
                         <div className='flex items-center justify-end relative'>
                             {
                                 user ? <>
-                                    <div onClick={() => setOpen(!open)} className='cursor-pointer ml-5 flex items-center'>
+                                    <div onClick={() => setOpen(!open)} ref={menuRef} className='cursor-pointer ml-5 flex items-center'>
                                         <img src={user?.photoURL} className='w-12 h-12 rounded-full border' alt="" />
                                         <div className='mx-2'>
                                             <h4 className='text-sm'>Hello, {user.displayName.slice(0, 10)}...</h4>
@@ -71,50 +84,49 @@ const Header = () => {
                                 </>
                             }
                             {/* Dropdown menu Start*/}
-                            <div className={`sub-menu-wrap z-10 absolute top-20 right-10 w-80 ${open ? 'active-menu' : 'inactive-menu'}`}>
-                                <div className="sub-menu bg-slate-50 m-2.5 p-4 rounded shadow-md">
-                                    <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
+                            <div className={`sub-menu-wrap z-10 absolute right-0 w-80 ${open ? 'active-menu' : 'inactive-menu'}`} style={{ top: '70px' }}>
+                                <div className="sub-menu bg-black m-2.5 p-4 rounded shadow-md">
+                                    <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2 ' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
-                                            <BsEmojiSmile className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>Manage my account</p>
+                                            <BsEmojiSmile className='text-2xl text-white' />
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all text-white'>Manage my account</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow text-white' />
                                     </Link>
                                     <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
-
-                                            <LiaBoxSolid className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>my orders</p>
+                                            <LiaBoxSolid className='text-2xl text-white' />
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all text-white'>my orders</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow text-white' />
                                     </Link>
                                     <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
-                                            <FiHeart className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>my wishlist</p>
+                                            <FiHeart className='text-2xl text-white' />
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all text-white'>my wishlist</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow text-white' />
                                     </Link>
                                     <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
-                                            <MdOutlineStars className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>my reviews</p>
+                                            <MdOutlineStars className='text-2xl text-white' />
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all text-white'>my reviews</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow text-white' />
                                     </Link>
                                     <Link className='sub-menu-link mb-5 cursor-pointer flex items-center justify-between text-decoration-none m-2' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
-                                            <IoMdCloseCircleOutline className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>my Returns & Cancellations</p>
+                                            <IoMdCloseCircleOutline className='text-2xl text-white' />
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all text-white'>my Returns & Cancellations</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow text-white' />
                                     </Link>
                                     <span onClick={handleLogOut} className='sub-menu-link cursor-pointer justify-between flex items-center text-decoration-none m-2 fw-medium' style={{ color: '#525252' }}>
                                         <div className='flex items-center'>
-                                            <HiOutlineArrowLeftStartOnRectangle className='text-2xl' />
-                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all'>Logout</p>
+                                            <HiOutlineArrowLeftStartOnRectangle className='text-2xl text-white' />
+                                            <p className='ml-3 capitalize font-light mb-0 text-sm transition-all text-white'>Logout</p>
                                         </div>
-                                        <MdOutlineKeyboardArrowRight className='menu-arrow' />
+                                        <MdOutlineKeyboardArrowRight className='menu-arrow text-white' />
                                     </span>
                                 </div>
                             </div>
