@@ -55,10 +55,10 @@ const Header = () => {
                         </div>
                     </div>
                     <div className='w-1/2'>
-                        <div className='flex items-center justify-end relative'>
+                        <div className='flex items-center justify-end relative' ref={menuRef}>
                             {
                                 user ? <>
-                                    <div onClick={() => setOpen(!open)} ref={menuRef} className='cursor-pointer ml-5 flex items-center'>
+                                    <div onClick={() => setOpen(!open)} className='cursor-pointer ml-5 flex items-center'>
                                         <img src={user?.photoURL} className='w-12 h-12 rounded-full border' alt="" />
                                         <div className='mx-2'>
                                             <h4 className='text-sm'>Hello, {user.displayName.slice(0, 10)}...</h4>

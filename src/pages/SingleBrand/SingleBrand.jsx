@@ -1,18 +1,20 @@
 import React, { useContext } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
-import SingleRatingStar from '../../Products/SingleProduct/SingleRatingStar';
+import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { TbCoinTaka, TbCurrencyTaka } from 'react-icons/tb';
-import { FaMinus, FaPlus } from 'react-icons/fa';
-import delivery from '../../../../assets/courier.png'
-import { BuyContext } from '../../../../context/BuynowContext';
-import { AddToCart } from '../../../../context/AddToCartContext';
-import { ProductQuantityContext } from '../../../../context/QuantityContext';
-import { addToDb } from '../../../../utilities/fakedb';
+import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import SingleRatingStar from '../Home/Products/SingleProduct/SingleRatingStar';
+import { AddToCart } from '../../context/AddToCartContext';
 import { toast } from 'react-toastify';
-const SingleFlashsaleProduct = () => {
-    const flashsale = useLoaderData();
-
-    const { current_price, discount, image, name, original_price, rating, star } = flashsale;
+import { addToDb } from '../../utilities/fakedb';
+import { BuyContext } from '../../context/BuynowContext';
+import { ProductQuantityContext } from '../../context/QuantityContext';
+import delivery from '../../assets/courier.png'
+import { AuthContext } from '../../Provider/AuthProvider';
+const SingleBrand = () => {
+    const singlebrand = useLoaderData();
+    console.log(singlebrand)
+    // console.log(product)
+    const { current_price, discount, image, name, original_price, rating, star, brand } = singlebrand;
     //Product Quntity
     const { productQuantity, setProductQuantity } = useContext(ProductQuantityContext);
     const inQuantity = () => {
@@ -28,18 +30,29 @@ const SingleFlashsaleProduct = () => {
     // buy now function
     const { buy, setBuy } = useContext(BuyContext);
     const handleBuyNow = () => {
-        setBuy([...buy, flashsale])
+        setBuy([...buy, singlebrand])
     }
     // add to cart function
+    const location = useLocation();
+    console.log(location)
+    const from = location?.state?.from?.pathname || '/';
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext)
     const { cart, setCart } = useContext(AddToCart);
     const handleAddToCart = () => {
-        const exists = cart.find(pd => pd.id === flashsale.id);
-        if (!exists) {
-            toast('Product already Add!')
-            setCart([...cart, flashsale])
-            addToDb(flashsale.id)
+        if (!user) {
+            navigate(from)
+        }
+        else {
+            const exists = cart.find(pd => pd.id === singlebrand.id);
+            if (!exists) {
+                toast('Product already Add!')
+                setCart([...cart, singlebrand])
+            }
         }
     }
+
+
     return (
         <section className='py-12'>
             <div className="container mx-auto px-4">
@@ -57,7 +70,7 @@ const SingleFlashsaleProduct = () => {
                                     <SingleRatingStar className='text-lg' rating={star} />
                                     <p className='ml-2 text-sm'><span className='mr-1'>{rating}</span>Ratings</p>
                                 </div>
-                                <h5 className='text-gray-400 font-normal'>Brand: <Link className='text-sm'>No Brand</Link></h5>
+                                <h5 className='text-gray-400 font-normal'>Brand: <Link className='text-sm'>{brand}</Link></h5>
                             </div>
                             <hr className='my-3' />
                             <div style={{ marginLeft: '-5px' }} className='flex items-center'>
@@ -74,15 +87,15 @@ const SingleFlashsaleProduct = () => {
                             <div className='flex items-center mt-4'>
                                 <span className='text-base text-gray-400 font-normal mr-10'>Quantity</span>
                                 <div className='flex'>
-                                    <button onClick={deQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn">
+                                    <button onClick={deQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
                                         <FaMinus className='transition-all text-gray-400 text-sm quantity-icon' />
                                     </button>
                                     <input
                                         type="text"
                                         value={productQuantity}
-                                        className="text-center w-10 outline-none"
+                                        className="text-center w-10"
                                     />
-                                    <button onClick={inQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn">
+                                    <button onClick={inQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
                                         <FaPlus className='transition-all text-gray-400 text-sm quantity-icon' />
                                     </button>
                                 </div>
@@ -138,4 +151,4 @@ const SingleFlashsaleProduct = () => {
     );
 };
 
-export default SingleFlashsaleProduct;
+export default SingleBrand;

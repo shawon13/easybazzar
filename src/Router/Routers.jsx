@@ -13,6 +13,8 @@ import ChildCategoryPage from "../pages/ChildCategoryPage/ChildCategoryPage";
 import Cart from "../pages/Cart/Cart";
 import PrivetRoute from "./PrivetRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import BrandsDetails from "../pages/Home/Brands/BrandsDetails/BrandsDetails";
+import SingleBrand from "../pages/SingleBrand/SingleBrand";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +56,16 @@ const router = createBrowserRouter([
                 path: '/categories/childcategory/:id',
                 element: <ChildCategoryPage></ChildCategoryPage>,
                 loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/categories/childcategory/${params.id}`)
+            },
+            {
+                path: '/brandsproduct/:id',
+                element: <BrandsDetails></BrandsDetails>,
+                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/brandsproduct/${params.id}`)
+            },
+            {
+                path: '/brand/:id',
+                element: <SingleBrand></SingleBrand>,
+                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/brand/${params.id}`)
             },
             {
                 path: '/buynow',
