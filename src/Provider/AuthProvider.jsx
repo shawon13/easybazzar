@@ -1,5 +1,5 @@
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import app from '../firebase/firebase.config'
 
 
@@ -14,9 +14,9 @@ const AuthProvider = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
     // name and photoUrl
-    const updateUser = (user, name, url) => {
+    const updateUser = (user, name) => {
         updateProfile(user, {
-            displayName: name, photoURL: url
+            displayName: name
         })
     }
     //email verification

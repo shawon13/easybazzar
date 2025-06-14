@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import './Header.css'
 import { MagnifyingGlassIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
-import { AddToCart } from '../../context/AddToCartContext';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { MdOutlineKeyboardArrowRight, MdOutlineStars } from "react-icons/md";
 import { BsEmojiSmile } from "react-icons/bs";
@@ -11,11 +10,12 @@ import { LiaBoxSolid } from "react-icons/lia";
 import { FiHeart } from "react-icons/fi";
 import { HiOutlineArrowLeftStartOnRectangle } from "react-icons/hi2";
 import { IoMdCloseCircleOutline, IoIosArrowDown } from "react-icons/io";
+import { CartCount } from '../../context/CartCountContext/CartCountContext'
 
 
 const Header = () => {
-    const { cart } = useContext(AddToCart)
-    const { user, logOut } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext);
+    const { cartCount } = useContext(CartCount)
     const [open, setOpen] = useState(false);
     const menuRef = useRef();
     const handleLogOut = () => {
@@ -34,12 +34,14 @@ const Header = () => {
             document.removeEventListener('mousedown', handleOutSideClick)
         }
     });
+
+
     return (
         <header className='bg-slate-100 py-3.5 shadow-md w-full'>
             <div className="container mx-auto px-4">
                 <nav className="flex items-center">
                     <div className='w-1/2'>
-                        <Link to='/' className='flex items-center cursor-pointer'>
+                        <Link to="/" className='flex items-center cursor-pointer'>
                             <img
                                 className="w-16"
                                 src={logo}
@@ -61,25 +63,30 @@ const Header = () => {
                                     <div onClick={() => setOpen(!open)} className='cursor-pointer ml-5 flex items-center'>
                                         <img src={user?.photoURL} className='w-12 h-12 rounded-full border' alt="" />
                                         <div className='mx-2'>
-                                            <h4 className='text-sm'>Hello, {user.displayName.slice(0, 10)}...</h4>
+                                            <h4 className='text-sm'>Hello, {user?.displayName?.slice(0, 10)}...</h4>
                                             <span className='font-semibold text-base capitalize'>Orders & Account</span>
                                         </div>
                                         <IoIosArrowDown />
                                     </div>
                                     <span className='ml-6 relative'>
                                         <Link to='/cart' className='text-black'><ShoppingCartIcon className='w-10 cursor-pointer' /></Link>
-                                        <p className=' w-5 h-5 rounded-full bg-black text-white absolute top-0 border-2 border-slate-100' style={{ top: '-3px', right: '-8px' }}>
-                                            <span className='text-xs absolute top-0' style={{ left: '5px' }}>{cart.length}</span>
-                                        </p>
+                                        {
+                                            cartCount ? <p className=' w-[22px] h-[22px] rounded-full bg-black text-white absolute border-2 border-slate-100 flex justify-center align-middle' style={{ top: '-5px', right: '-10px' }}>
+                                                <span style={{ fontSize: '11px' }} className='absolute font-semibold'>{cartCount}</span>
+                                            </p> : ''
+                                        }
+
                                     </span>
                                 </> : <>
                                     <Link to='/login' className='px-6 py-2 rounded-md text-white bg-black'>Login</Link>
                                     <Link to='/register' className=' ml-6 px-6 py-2 rounded-md text-white bg-black'>Sign Up</Link>
                                     <span className='ml-6 relative'>
                                         <Link to='/cart' className='text-black'><ShoppingCartIcon className='w-10 cursor-pointer' /></Link>
-                                        <p className=' w-5 h-5 rounded-full bg-black text-white absolute border-2 border-slate-100' style={{ top: '-3px', right: '-8px' }}>
-                                            <span className='text-xs absolute top-0' style={{ left: '5px' }}>{cart.length}</span>
-                                        </p>
+                                        {
+                                            cartCount ? <p className=' w-[22px] h-[22px] rounded-full bg-black text-white absolute border-2 border-slate-100 flex justify-center align-middle' style={{ top: '-5px', right: '-10px' }}>
+                                                <span style={{ fontSize: '11px' }} className='absolute font-semibold'>{cartCount}</span>
+                                            </p> : ''
+                                        }
                                     </span>
                                 </>
                             }

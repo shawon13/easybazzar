@@ -14,7 +14,9 @@ import Cart from "../pages/Cart/Cart";
 import PrivetRoute from "./PrivetRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import BrandsDetails from "../pages/Home/Brands/BrandsDetails/BrandsDetails";
-import SingleBrand from "../pages/SingleBrand/SingleBrand";
+import SingleBrand from "../pages/Home/Brands/SingleBrand/SingleBrand";
+import CheckOut from "../pages/CheckOut/CheckOut";
+import BrandBuynow from "../pages/BrandBuynow/BrandBuynow";
 
 const router = createBrowserRouter([
     {
@@ -23,53 +25,51 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             {
-                path: '/',
+                path: '',
                 element: < Home ></Home >,
-                loader: () => fetch('https://easybazzar-server.vercel.app/products')
             },
             {
-                path: '/product/:id',
-                element: <SingleProduct></SingleProduct>,
-                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/product/${params.id}`)
-            },
-            {
-                path: '/flashsales',
-                element: <FlashSales></FlashSales>,
-                loader: () => fetch('https://easybazzar-server.vercel.app/flashsales')
-            },
-            {
-                path: 'flashsales/flashsale/:id',
-                element: <SingleFlashsaleProduct></SingleFlashsaleProduct>,
-                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/flashsales/flashsale/${params.id}`)
-            },
-            {
-                path: '/flashsale/:id',
-                element: <SingleFlashsaleProduct></SingleFlashsaleProduct>,
-                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/flashsale/${params.id}`)
-            },
-            {
-                path: '/categories/:id',
-                element: <SubCategoryPage></SubCategoryPage>,
-                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/categories/${params.id}`)
-            },
-            {
-                path: '/categories/childcategory/:id',
-                element: <ChildCategoryPage></ChildCategoryPage>,
-                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/categories/childcategory/${params.id}`)
-            },
-            {
-                path: '/brandsproduct/:id',
-                element: <BrandsDetails></BrandsDetails>,
-                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/brandsproduct/${params.id}`)
-            },
-            {
-                path: '/brand/:id',
-                element: <SingleBrand></SingleBrand>,
-                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/brand/${params.id}`)
+                path: '/product/:name',
+                element: <SingleProduct />,
+                loader: ({ params }) => fetch(`http://localhost:5000/product/${params.name}`)
             },
             {
                 path: '/buynow',
-                element: <PrivetRoute><Buynow></Buynow></PrivetRoute>
+                element: <Buynow></Buynow>,
+            },
+            {
+                path: '/flashsales',
+                element: <FlashSales></FlashSales>
+            },
+            {
+                path: '/flashsale/:name',
+                element: <SingleFlashsaleProduct></SingleFlashsaleProduct>,
+                loader: ({ params }) => fetch(`http://localhost:5000/flashsale/${params.name}`)
+            },
+            {
+                path: '/categories/:category_id',
+                element: <SubCategoryPage></SubCategoryPage>,
+                loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.category_id}`)
+            },
+            {
+                path: '/categories/childcategory/:product_id',
+                element: <ChildCategoryPage></ChildCategoryPage>,
+                loader: ({ params }) => fetch(`http://localhost:5000/categories/childcategory/${params.product_id}`)
+            },
+            {
+                path: '/brandsproducts/:category_id',
+                element: <BrandsDetails></BrandsDetails>,
+                loader: ({ params }) => fetch(`http://localhost:5000/brandsproducts/${params.category_id}`)
+            },
+            {
+                path: '/brand/:name',
+                element: <SingleBrand></SingleBrand>,
+                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/brand/${params.name}`)
+            },
+            {
+                path: '/brand/buynow/:name',
+                element: <PrivetRoute><BrandBuynow></BrandBuynow></PrivetRoute>,
+                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/brand/buynow/${params.name}`)
             },
             {
                 path: '/login',
@@ -86,6 +86,10 @@ const router = createBrowserRouter([
             {
                 path: '/cart',
                 element: <PrivetRoute><Cart></Cart></PrivetRoute>
+            },
+            {
+                path: '/checkout',
+                element: <CheckOut></CheckOut>
             }
         ]
     }

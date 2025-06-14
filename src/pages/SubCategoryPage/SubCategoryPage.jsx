@@ -1,7 +1,5 @@
-import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import SubCategoryCard from './SubCategoryCard';
-
 const SubCategoryPage = () => {
     const subcategorys = useLoaderData();
     return (

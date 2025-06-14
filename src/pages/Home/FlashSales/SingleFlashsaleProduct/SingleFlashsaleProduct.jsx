@@ -1,43 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import SingleRatingStar from '../../Products/SingleProduct/SingleRatingStar';
 import { TbCoinTaka, TbCurrencyTaka } from 'react-icons/tb';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import delivery from '../../../../assets/courier.png'
-import { BuyContext } from '../../../../context/BuynowContext';
-import { AddToCart } from '../../../../context/AddToCartContext';
-import { ProductQuantityContext } from '../../../../context/QuantityContext';
-import { addToDb } from '../../../../utilities/fakedb';
 import { toast } from 'react-toastify';
 const SingleFlashsaleProduct = () => {
     const flashsale = useLoaderData();
 
     const { current_price, discount, image, name, original_price, rating, star } = flashsale;
     //Product Quntity
-    const { productQuantity, setProductQuantity } = useContext(ProductQuantityContext);
+    const [buynowQuantity, setBuynowQuantity] = useState(1)
     const inQuantity = () => {
-        if (productQuantity < 5) {
-            setProductQuantity(productQuantity + 1);
+        if (buynowQuantity < 5) {
+            setBuynowQuantity(buynowQuantity + 1);
         }
     }
     const deQuantity = () => {
-        if (productQuantity > 1) {
-            setProductQuantity(productQuantity - 1);
+        if (buynowQuantity > 1) {
+            setBuynowQuantity(buynowQuantity - 1);
         }
     }
-    // buy now function
-    const { buy, setBuy } = useContext(BuyContext);
-    const handleBuyNow = () => {
-        setBuy([...buy, flashsale])
-    }
+
     // add to cart function
-    const { cart, setCart } = useContext(AddToCart);
+    const [cart, setCart] = useState();
     const handleAddToCart = () => {
         const exists = cart.find(pd => pd.id === flashsale.id);
         if (!exists) {
-            toast('Product already Add!')
             setCart([...cart, flashsale])
-            addToDb(flashsale.id)
+        }
+        else {
+            toast('Product already Add!')
         }
     }
     return (
@@ -79,7 +72,7 @@ const SingleFlashsaleProduct = () => {
                                     </button>
                                     <input
                                         type="text"
-                                        value={productQuantity}
+                                        value={buynowQuantity}
                                         className="text-center w-10 outline-none"
                                     />
                                     <button onClick={inQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn">
@@ -88,7 +81,7 @@ const SingleFlashsaleProduct = () => {
                                 </div>
                             </div>
                             <div className='mt-8'>
-                                <Link onClick={handleBuyNow} to='/buynow' className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
+                                <Link to={`/buynow/${name}`} className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
                                 <button onClick={handleAddToCart} className='text-white bg-orange capitalize font-normal px-20 py-3 rounded-none'>Add to cart</button>
                             </div>
                         </div>

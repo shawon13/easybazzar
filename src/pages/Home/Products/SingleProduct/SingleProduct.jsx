@@ -1,46 +1,63 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import './SingleProduct.css'
 import { Link, useLoaderData } from 'react-router-dom';
 import { TbCoinTaka, TbCurrencyTaka } from 'react-icons/tb';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import SingleRatingStar from './SingleRatingStar';
 import delivery from '../../../../assets/courier.png'
-import { BuyContext } from '../../../../context/BuynowContext';
-import { AddToCart } from '../../../../context/AddToCartContext';
-import { ProductQuantityContext } from '../../../../context/QuantityContext';
-import { toast } from 'react-toastify';
-import { addToDb } from '../../../../utilities/fakedb';
+import Swal from 'sweetalert2'
+import { CartCount } from '../../../../context/CartCountContext/CartCountContext';
+
+
 const SingleProduct = () => {
     const product = useLoaderData();
-
+    const { updateCartCount } = useContext(CartCount);
     // console.log(product)
-    const { current_price, discount, image, name, original_price, rating, star } = product;
-    //Product Quntity
-    const { productQuantity, setProductQuantity } = useContext(ProductQuantityContext);
+    const { current_price, discount, image, name, original_price, rating, star, quantity } = product;
+
+    const [productQuantity, setProductQuantity] = useState(quantity);
+
     const inQuantity = () => {
         if (productQuantity < 5) {
-            setProductQuantity(productQuantity + 1);
+            setProductQuantity(productQuantity + 1)
         }
     }
     const deQuantity = () => {
         if (productQuantity > 1) {
-            setProductQuantity(productQuantity - 1);
+            setProductQuantity(productQuantity - 1)
         }
     }
-    // buy now function
-    const { buy, setBuy } = useContext(BuyContext);
-    const handleBuyNow = () => {
-        setBuy([...buy, product])
-    }
+
+
     // add to cart function
-    const { cart, setCart } = useContext(AddToCart);
-    const handleAddToCart = () => {
-        const exists = cart.find(pd => pd.id === product.id);
-        if (!exists) {
-            toast('Product already Add!')
-            setCart([...cart, product])
-            addToDb(product.id)
+    const handleAddToCart = (id) => {
+        console.log('click', id)
+        const addedProduct = {
+            ...product, quantity: productQuantity
+        };
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const alreadyExsist = cart.find(p => p._id === addedProduct._id);
+        if (alreadyExsist) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `Product already in your cart.`,
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
+        else {
+            cart.push(addedProduct);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `Added to cart successfully!`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+        updateCartCount()
     }
 
 
@@ -78,7 +95,7 @@ const SingleProduct = () => {
                             <div className='flex items-center mt-4'>
                                 <span className='text-base text-gray-400 font-normal mr-10'>Quantity</span>
                                 <div className='flex'>
-                                    <button onClick={deQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
+                                    <button onClick={() => deQuantity(name)} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
                                         <FaMinus className='transition-all text-gray-400 text-sm quantity-icon' />
                                     </button>
                                     <input
@@ -86,14 +103,14 @@ const SingleProduct = () => {
                                         value={productQuantity}
                                         className="text-center w-10"
                                     />
-                                    <button onClick={inQuantity} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
+                                    <button onClick={() => inQuantity(name)} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
                                         <FaPlus className='transition-all text-gray-400 text-sm quantity-icon' />
                                     </button>
                                 </div>
                             </div>
                             <div className='mt-8'>
-                                <Link onClick={handleBuyNow} to='/buynow' className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
-                                <button onClick={handleAddToCart} className='text-white bg-orange capitalize font-normal px-20 py-3 rounded-none'>Add to cart</button>
+                                <Link to={`/buynow?id=${product._id}&quantity=${productQuantity}`} className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
+                                <button onClick={() => handleAddToCart(product._id)} className='text-white bg-orange capitalize font-normal px-20 py-3 rounded-none'>Add to cart</button>
                             </div>
                         </div>
                     </div>
@@ -105,7 +122,7 @@ const SingleProduct = () => {
                                 <h4 className='text-base capitalize text-black font-semibold'>standard delivery<span className='ml-2 text-sm font-normal text-gray-400'>5-9 days</span></h4>
                                 <div className='flex items-center'>
                                     <TbCurrencyTaka className='text-black text-xl' />
-                                    <span className='text-black'>90</span>
+                                    <span className='text-black'>55</span>
                                 </div>
                             </div>
                             <div className='flex mt-3'>

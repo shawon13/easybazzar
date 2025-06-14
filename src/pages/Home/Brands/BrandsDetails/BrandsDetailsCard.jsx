@@ -1,13 +1,13 @@
-import React from 'react';
+
 import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import Ratingstar from '../../Products/Ratingstar';
 
 
 const BrandsDetailsCard = ({ brand }) => {
-    const { image, name, original_price, current_price, discount, star, id } = brand;
+    const { image, name, original_price, current_price, discount, star } = brand;
     return (
-        <Link to={`/brand/${id}`} className='hover:shadow-lg bg-white transition-all w-60'>
+        <Link to={`/brand/${name}`} className='hover:shadow-lg bg-white transition-all w-60'>
             <img className='w-full h-48' src={image} alt="" />
             <div className='p-2'>
                 <h4 className='text-black'>{name.slice(0, 35)}...</h4>

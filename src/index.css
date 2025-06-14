@@ -1,6 +1,7 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+@import "tailwindcss";
 
 @layer utilities {
   .category-li:hover .category-title {
@@ -95,6 +96,14 @@ button:focus-visible {
 .w {
   width: 18px;
   height: 18px;
+}
+
+.swal2-confirm {
+  background-color: #3085d6;
+}
+
+.swal2-cancel {
+  background-color: #d33;
 }
 
 @media (prefers-color-scheme: light) {

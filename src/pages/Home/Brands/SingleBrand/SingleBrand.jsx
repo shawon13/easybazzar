@@ -1,57 +1,38 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { TbCoinTaka, TbCurrencyTaka } from 'react-icons/tb';
-import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
-import SingleRatingStar from '../Home/Products/SingleProduct/SingleRatingStar';
-import { AddToCart } from '../../context/AddToCartContext';
+import { Link, useLoaderData } from 'react-router-dom';
+import SingleRatingStar from '../../Products/SingleProduct/SingleRatingStar';
 import { toast } from 'react-toastify';
-import { addToDb } from '../../utilities/fakedb';
-import { BuyContext } from '../../context/BuynowContext';
-import { ProductQuantityContext } from '../../context/QuantityContext';
-import delivery from '../../assets/courier.png'
-import { AuthContext } from '../../Provider/AuthProvider';
+import delivery from '../../../../assets/courier.png'
 const SingleBrand = () => {
     const singlebrand = useLoaderData();
-    console.log(singlebrand)
-    // console.log(product)
     const { current_price, discount, image, name, original_price, rating, star, brand } = singlebrand;
+
     //Product Quntity
-    const { productQuantity, setProductQuantity } = useContext(ProductQuantityContext);
+    const [buynowQuantity, setBuynowQuantity] = useState()
     const inQuantity = () => {
-        if (productQuantity < 5) {
-            setProductQuantity(productQuantity + 1);
+        if (buynowQuantity < 5) {
+            setBuynowQuantity(buynowQuantity + 1);
         }
     }
     const deQuantity = () => {
-        if (productQuantity > 1) {
-            setProductQuantity(productQuantity - 1);
-        }
-    }
-    // buy now function
-    const { buy, setBuy } = useContext(BuyContext);
-    const handleBuyNow = () => {
-        setBuy([...buy, singlebrand])
-    }
-    // add to cart function
-    const location = useLocation();
-    console.log(location)
-    const from = location?.state?.from?.pathname || '/';
-    const navigate = useNavigate();
-    const { user } = useContext(AuthContext)
-    const { cart, setCart } = useContext(AddToCart);
-    const handleAddToCart = () => {
-        if (!user) {
-            navigate(from)
-        }
-        else {
-            const exists = cart.find(pd => pd.id === singlebrand.id);
-            if (!exists) {
-                toast('Product already Add!')
-                setCart([...cart, singlebrand])
-            }
+        if (buynowQuantity > 1) {
+            setBuynowQuantity(buynowQuantity - 1);
         }
     }
 
+    // add to cart function
+    const [cart, setCart] = useState();
+    const handleAddToCart = () => {
+        const exists = cart.find(pd => pd.id === singlebrand.id);
+        if (!exists) {
+            setCart([...cart, singlebrand])
+        }
+        else {
+            toast('Product already Add!')
+        }
+    }
 
     return (
         <section className='py-12'>
@@ -101,7 +82,7 @@ const SingleBrand = () => {
                                 </div>
                             </div>
                             <div className='mt-8'>
-                                <Link onClick={handleBuyNow} to='/buynow' className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
+                                <Link to={`/brand/buynow/${name}`} className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
                                 <button onClick={handleAddToCart} className='text-white bg-orange capitalize font-normal px-20 py-3 rounded-none'>Add to cart</button>
                             </div>
                         </div>

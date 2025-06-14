@@ -1,11 +1,19 @@
-import React from 'react';
 import './FlashSales.css'
-import { useLoaderData } from 'react-router-dom';
 import FlashSaleCard from './FlashSaleCard/FlashSaleCard';
 import Timer from './Timer/Timer';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const FlashSales = () => {
-    const flashsales = useLoaderData();
+    const axiosSecure = useAxiosSecure();
+    //flashsales
+    const { data: flashsales = [] } = useQuery({
+        queryKey: ["flashsales"],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/flashsales');
+            return res.data;
+        }
+    })
     return (
         <div>
             <div className='flash-sale-banner bg-center bg-no-repeat bg-cover'>

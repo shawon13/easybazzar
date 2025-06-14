@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Category from './Category/Category';
+import {
+    useQuery,
+} from '@tanstack/react-query'
 
 const Categories = () => {
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        fetch('https://easybazzar-server.vercel.app/categories')
-            .then(res => res.json())
-            .then(data => setCategories(data))
-    }, [])
+    const axiosSecure = useAxiosSecure();
+    const { data: categories = [] } = useQuery({
+        queryKey: ["categories"],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/categories');
+            return res.data;
+        }
+    })
     return (
         <div className='bg-white shadow-sm h-full mr-5 rounded-md py-1.5 px-3 relative'>
             <ul>

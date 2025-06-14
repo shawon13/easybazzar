@@ -1,113 +1,73 @@
-
-import { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { TbCurrencyTaka } from 'react-icons/tb';
-import { Link } from 'react-router-dom';
-import useProducts from '../../hooks/useProducts';
-import { AuthContext } from '../../Provider/AuthProvider';
+import { Link, useLoaderData } from 'react-router-dom';
 
-const Buynow = () => {
-    const [productId, setProductId] = useState('');
-    const [quantity, setQuantity] = useState(1);
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id');
-        const qty = parseInt(params.get('quantity'));
-        console.log('id', id);
-        console.log('qty', qty);
-        setProductId(id);
-        setQuantity(qty || 1);
-    }, []);
-    const [products] = useProducts()
-    const product = products.find(p => p._id === productId);
-    console.log('product', product);
+const BrandBuynow = () => {
+    const buynowProduct = useLoaderData();
+    const { current_price, discount, image, name, original_price, quantity } = buynowProduct;
 
-    //delivery
+    const buyQuantity = quantity;
+
+    const originalPrice = original_price * buyQuantity;
+    const subTotal = current_price * buyQuantity;
+    const itemsTotal = current_price * buyQuantity;
+    const savedPrice = originalPrice - subTotal;
+
     const [deliveryCharge, setDeliveryCharge] = useState(55);
+
     useEffect(() => {
         const deliveryChargeElement = document.getElementById('delivery-charge');
         const deliveryChargeAmount = parseInt(deliveryChargeElement.innerText);
-        setDeliveryCharge(deliveryChargeAmount);
+        if (subTotal > 500) {
+            setDeliveryCharge(150)
+        }
+        else {
+            setDeliveryCharge(deliveryChargeAmount);
+        }
     }, []);
 
-
-    const { loading } = useContext(AuthContext);
-    //loading
-    if (loading) {
-        return <div className='text-center py-40'>Loading...</div>
-    }
+    const total = itemsTotal + deliveryCharge;
     return (
-
         <section className='py-6'>
             <div className="container px-4 mx-auto">
                 <div className='flex'>
                     <div style={{ width: '70%' }} className=''>
                         <div className='bg-white px-5 py-6 shadow-md rounded-md mr-5 mb-5'>
-                            {/* buynow */}
                             <div className='flex items-center justify-between'>
                                 <div className='flex w-7/12'>
-                                    <img src={product?.image} className='w-16 h-16' alt="" />
+                                    <img src={image} className='w-16 h-16' alt="" />
                                     <div className='ml-3 pr-3'>
-                                        <h4 className='text-sm'>{product?.name}</h4>
+                                        <h4 className='text-sm'>{name}</h4>
                                         <span className='text-sm text-gray-500'>No Brand</span>
                                     </div>
                                 </div>
                                 <div className='text-center' style={{ width: '10%' }}>
-                                    <span className='text-sm'>Qty:{quantity}</span>
+                                    <span className='text-sm'>Qty:{buyQuantity}</span>
                                 </div>
                                 <div className='flex justify-end items-center w-1/4'>
                                     <div style={{ backgroundColor: '#F5F5F5' }} className='flex justify-between items-center px-1'>
                                         <div className='flex justify-between items-center text-xs line-through'>
                                             <TbCurrencyTaka className='text-base' />
-                                            <span>{product?.original_price}</span>
+                                            <span>{original_price}</span>
                                         </div>
-                                        <span className='ml-2 text-xs'>{product?.discount}</span>
+                                        <span className='ml-2 text-xs'>{discount}</span>
                                     </div>
                                     <div className='flex items-center justify-between text-sm ml-2'>
                                         <TbCurrencyTaka className='text-base' />
-                                        <span>{product?.current_price}</span>
+                                        <span>{current_price}</span>
                                     </div>
                                 </div>
                             </div>
-                            {/* {
-                                buyNowProduct.map(p => <>
-                                    <div className='flex items-center justify-between'>
-                                        <div className='flex w-7/12'>
-                                            <img src={p.image} className='w-16 h-16' alt="" />
-                                            <div className='ml-3 pr-3'>
-                                                <h4 className='text-sm'>{p.name}</h4>
-                                                <span className='text-sm text-gray-500'>No Brand</span>
-                                            </div>
-                                        </div>
-                                        <div className='text-center' style={{ width: '10%' }}>
-                                            <span className='text-sm'>Qty:{p.quantity}</span>
-                                        </div>
-                                        <div className='flex justify-end items-center w-1/4'>
-                                            <div style={{ backgroundColor: '#F5F5F5' }} className='flex justify-between items-center px-1'>
-                                                <div className='flex justify-between items-center text-xs line-through'>
-                                                    <TbCurrencyTaka className='text-base' />
-                                                    <span>{p.original_price}</span>
-                                                </div>
-                                                <span className='ml-2 text-xs'>{p.discount}</span>
-                                            </div>
-                                            <div className='flex items-center justify-between text-sm ml-2'>
-                                                <TbCurrencyTaka className='text-base' />
-                                                <span>{p.current_price}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </>
-                                )
-                            } */}
                             <hr className='my-3' />
                             <div className=''>
                                 <div className='flex items-center justify-end text-base'>
                                     <h4>item(s).subtotal:</h4>
-                                    <span className='flex items-center orangeColor'><TbCurrencyTaka />subTotal</span>
+                                    <span className='flex items-center orangeColor'><TbCurrencyTaka />{subTotal}</span>
                                 </div>
                                 <div className='flex items-center justify-end text-sm text-gray-500'>
                                     <h4 className='capitalize'>saved</h4>
-                                    <span className='flex items-center'><TbCurrencyTaka />savedPrice</span>
+                                    <span className='flex items-center'><TbCurrencyTaka />{savedPrice}</span>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +97,7 @@ const Buynow = () => {
                                 <h4 className='text-base font-normal text-black capitalize'>items Total</h4>
                                 <div className='flex items-center justify-between'>
                                     <TbCurrencyTaka className='text-black text-xl' />
-                                    <span>itemsTotal</span>
+                                    <span>{itemsTotal}</span>
                                 </div>
                             </div>
                             <div className='flex items-center justify-between my-2'>
@@ -151,7 +111,7 @@ const Buynow = () => {
                                 <h4 className='text-base font-normal text-black capitalize'>total payment</h4>
                                 <div className='flex items-center justify-between'>
                                     <TbCurrencyTaka className='text-black text-xl' />
-                                    <span>total</span>
+                                    <span>{total}</span>
                                 </div>
                             </div>
                             <div className='text-center mt-5'>
@@ -162,8 +122,7 @@ const Buynow = () => {
                 </div>
             </div>
         </section>
-
     );
 };
 
-export default Buynow;
+export default BrandBuynow;

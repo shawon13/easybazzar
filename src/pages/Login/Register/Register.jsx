@@ -23,7 +23,6 @@ const Register = () => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
-        const photoUrl = form.photourl.value;
         const email = form.email.value;
         const password = form.password.value;
         const confirm = form.confirm.value;
@@ -56,7 +55,7 @@ const Register = () => {
                 toast('Successfully Registered');
                 form.reset();
                 navigate('/')
-                updateUser(regUser, name, photoUrl)
+                updateUser(regUser, name)
                 emailVerification(regUser)
                     .then(() => {
                         toast('Please Check Your Email,Email verification sent!');
@@ -80,10 +79,6 @@ const Register = () => {
                             <div className='mb-4'>
                                 <label className='block mb-1'>Name</label>
                                 <input className='border w-full py-2.5 px-2.5 outline-0' type="text" name="name" id="" placeholder='Please enter your name' required />
-                            </div>
-                            <div className='mb-4'>
-                                <label className='block mb-1'>Photo Url</label>
-                                <input className='border w-full py-2.5 px-2.5 outline-0' type="url" name="photourl" id="" placeholder='Please enter your photo url' />
                             </div>
                             <div className='mb-4'>
                                 <label className='block mb-1'>Email</label>
