@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { TbCoinTaka, TbCurrencyTaka } from 'react-icons/tb';
 import { Link, useLoaderData } from 'react-router-dom';
@@ -6,37 +6,39 @@ import SingleRatingStar from '../../Products/SingleProduct/SingleRatingStar';
 import { toast } from 'react-toastify';
 import delivery from '../../../../assets/courier.png'
 const SingleBrand = () => {
-    const singlebrand = useLoaderData();
-    const { current_price, discount, image, name, original_price, rating, star, brand } = singlebrand;
+    const product = useLoaderData();
+    console.log(product)
+    // const { current_price, discount, image, name, original_price, rating, star, brand } = singlebrand;
 
-    //Product Quntity
-    const [buynowQuantity, setBuynowQuantity] = useState()
-    const inQuantity = () => {
-        if (buynowQuantity < 5) {
-            setBuynowQuantity(buynowQuantity + 1);
-        }
-    }
-    const deQuantity = () => {
-        if (buynowQuantity > 1) {
-            setBuynowQuantity(buynowQuantity - 1);
-        }
-    }
+    // //Product Quntity
+    // const [buynowQuantity, setBuynowQuantity] = useState()
+    // const inQuantity = () => {
+    //     if (buynowQuantity < 5) {
+    //         setBuynowQuantity(buynowQuantity + 1);
+    //     }
+    // }
+    // const deQuantity = () => {
+    //     if (buynowQuantity > 1) {
+    //         setBuynowQuantity(buynowQuantity - 1);
+    //     }
+    // }
 
-    // add to cart function
-    const [cart, setCart] = useState();
-    const handleAddToCart = () => {
-        const exists = cart.find(pd => pd.id === singlebrand.id);
-        if (!exists) {
-            setCart([...cart, singlebrand])
-        }
-        else {
-            toast('Product already Add!')
-        }
-    }
+    // // add to cart function
+    // const [cart, setCart] = useState();
+    // const handleAddToCart = () => {
+    //     const exists = cart.find(pd => pd.id === singlebrand.id);
+    //     if (!exists) {
+    //         setCart([...cart, singlebrand])
+    //     }
+    //     else {
+    //         toast('Product already Add!')
+    //     }
+    // }
 
     return (
         <section className='py-12'>
-            <div className="container mx-auto px-4">
+            <h2>shawon</h2>
+            {/* <div className="container mx-auto px-4">
                 <div className='bg-white flex'>
                     <div className='w-3/4 flex p-3 pb-12'>
                         <div>
@@ -127,7 +129,7 @@ const SingleBrand = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </section>
     );
 };

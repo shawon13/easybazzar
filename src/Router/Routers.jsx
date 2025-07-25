@@ -1,12 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "../layout/Main/Main";
+import Main from "../layout/Main";
 import Home from "../pages/Home/Home/Home";
 import FlashSales from "../pages/Home/FlashSales/FlashSales";
 import SingleProduct from "../pages/Home/Products/SingleProduct/SingleProduct";
 import Buynow from "../pages/Buynow/Buynow";
 import Login from "../pages/Login/Login/Login";
 import Register from "../pages/Login/Register/Register";
-import SingleFlashsaleProduct from "../pages/Home/FlashSales/SingleFlashsaleProduct/SingleFlashsaleProduct";
 import SearchProduct from "../pages/SearchProduct/SearchProduct";
 import SubCategoryPage from "../pages/SubCategoryPage/SubCategoryPage";
 import ChildCategoryPage from "../pages/ChildCategoryPage/ChildCategoryPage";
@@ -17,6 +16,11 @@ import BrandsDetails from "../pages/Home/Brands/BrandsDetails/BrandsDetails";
 import SingleBrand from "../pages/Home/Brands/SingleBrand/SingleBrand";
 import CheckOut from "../pages/CheckOut/CheckOut";
 import BrandBuynow from "../pages/BrandBuynow/BrandBuynow";
+import Dashboard from "../layout/Dashboard";
+import AllUsers from "../pages/AdminDashboard/AllUsers/AllUsers";
+import AdminRoute from "./AdminRoute";
+import AddItems from "../pages/AdminDashboard/AddItems/AddItems";
+import ManageItems from "../pages/AdminDashboard/ManageItems/ManageItems";
 
 const router = createBrowserRouter([
     {
@@ -42,11 +46,6 @@ const router = createBrowserRouter([
                 element: <FlashSales></FlashSales>
             },
             {
-                path: '/flashsale/:name',
-                element: <SingleFlashsaleProduct></SingleFlashsaleProduct>,
-                loader: ({ params }) => fetch(`http://localhost:5000/flashsale/${params.name}`)
-            },
-            {
                 path: '/categories/:category_id',
                 element: <SubCategoryPage></SubCategoryPage>,
                 loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.category_id}`)
@@ -57,14 +56,14 @@ const router = createBrowserRouter([
                 loader: ({ params }) => fetch(`http://localhost:5000/categories/childcategory/${params.product_id}`)
             },
             {
-                path: '/brandsproducts/:category_id',
+                path: '/brandsProducts/:category_id',
                 element: <BrandsDetails></BrandsDetails>,
-                loader: ({ params }) => fetch(`http://localhost:5000/brandsproducts/${params.category_id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/brandsProducts/${params.category_id}`)
             },
             {
-                path: '/brand/:name',
-                element: <SingleBrand></SingleBrand>,
-                loader: ({ params }) => fetch(`https://easybazzar-server.vercel.app/brand/${params.name}`)
+                path: '/brandproduct/:name',
+                element: <SingleBrand />,
+                loader: ({ params }) => fetch(`http://localhost:5000/brandproduct/${params.name}`)
             },
             {
                 path: '/brand/buynow/:name',
@@ -90,6 +89,24 @@ const router = createBrowserRouter([
             {
                 path: '/checkout',
                 element: <CheckOut></CheckOut>
+            }
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <AdminRoute><Dashboard></Dashboard></AdminRoute>,
+        children: [
+            {
+                path: '/dashboard/allusers',
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: '/dashboard/additems',
+                element: <AdminRoute><AddItems></AddItems></AdminRoute>
+            },
+            {
+                path: '/dashboard/manageitems',
+                element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
             }
         ]
     }

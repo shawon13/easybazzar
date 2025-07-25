@@ -1,15 +1,15 @@
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import Category from './Category/Category';
 import {
     useQuery,
 } from '@tanstack/react-query'
 
 const Categories = () => {
-    const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
     const { data: categories = [] } = useQuery({
         queryKey: ["categories"],
         queryFn: async () => {
-            const res = await axiosSecure.get('/categories');
+            const res = await axiosPublic.get('/categories');
             return res.data;
         }
     })

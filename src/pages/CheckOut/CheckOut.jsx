@@ -1,49 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import { RiDeleteBinLine } from 'react-icons/ri';
 
 const CheckOut = () => {
     const [cart, setCart] = useState()
-    //Product Quntity
 
-    // cart
-    let itemTotal = 0
-    let subTotal = 0;
-    let quantity = 0;
-    let savedPrice = 0;
-    let originalPrice = 0;
-    let currentPrice = 0;
-    for (const product of cart) {
-        console.log(product)
-        quantity = quantity * product.quantity;
-        subTotal = subTotal + product.current_price;
-        originalPrice = product.original_price;
-        currentPrice = product.current_price
-        savedPrice = originalPrice - currentPrice;
-        itemTotal = itemTotal + subTotal;
-    }
-    // delivery charge
-    const [deliveryCharge, setDeliveryCharge] = useState(55);
-
-    useEffect(() => {
-        const deliveryChargeElement = document.getElementById('delivery-charge');
-        const deliveryChargeAmount = parseInt(deliveryChargeElement.innerText);
-        if (subTotal > 500) {
-            setDeliveryCharge(150)
-        }
-        else {
-            setDeliveryCharge(deliveryChargeAmount);
-        }
-    }, []);
-    const total = subTotal + deliveryCharge;
     return (
         <section className='py-6'>
             <div className="container px-4 mx-auto">
                 <div className='flex'>
                     <div style={{ width: '70%' }}>
                         {
-                            cart.map(cp => {
+                            cart?.map(cp => {
                                 return <>
                                     <div className='bg-white px-5 py-6 shadow-md rounded-md mr-5 mb-5'>
                                         <div className='flex items-center'>

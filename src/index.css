@@ -1,32 +1,10 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
 @import "tailwindcss";
+@plugin "daisyui";
 
-@layer utilities {
-  .category-li:hover .category-title {
-    font-weight: 600;
-  }
 
-  .category-li:hover .category-icon {
-    right: -5px;
-  }
-
-  .sub-category-li:hover .sub-category-title {
-    font-weight: 600;
-  }
-
-  .sub-category-li:hover .sub-category-icon {
-    margin-right: -5px;
-  }
-
-  .orangeColor {
-    color: #f85606;
-  }
+.orangeColor {
+  color: #f85606;
 }
-
-
-
 
 :root {
   font-family: "Archivo", sans-serif;
@@ -45,13 +23,12 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #000;
   text-decoration: inherit;
 }
 
 body {
   margin: 0;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
   font-family: "Archivo", sans-serif;
@@ -64,16 +41,16 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.input:focus,
+input:focus-visible {
+  outline: 0px;
+  --input-color: #d1d1d1;
+}
+
+.select:focus,
+select:focus-visible {
+  outline: 0px;
+  --input-color: #d1d1d1;
 }
 
 button:hover {
@@ -112,7 +89,5 @@ button:focus-visible {
     background-color: #ffffff;
   }
 
-  button {
-    background-color: #f9f9f9;
-  }
+
 }

@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "./useAxiosSecure";
+import useAxiosPublic from "./useAxiosPublic";
 
 const useProducts = () => {
-    const axiosSecure = useAxiosSecure()
-    const { data: products = [] } = useQuery({
+    const axiosPublic = useAxiosPublic()
+    const { refetch, data: products = [] } = useQuery({
         queryKey: ["products"],
         queryFn: async () => {
-            const res = await axiosSecure.get('/products');
+            const res = await axiosPublic.get('/products');
             return res.data;
         }
     })
-    return [products]
+    return [products, refetch]
 };
 
 export default useProducts;

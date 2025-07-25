@@ -1,9 +1,8 @@
-import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
-import { createContext, useEffect, useState } from 'react';
+import { FacebookAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { useEffect, useState } from 'react';
 import app from '../firebase/firebase.config'
-
-
-export const AuthContext = createContext()
+import AuthContext from './AuthContext';
+import axios from 'axios';
 const auth = getAuth(app)
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
@@ -28,11 +27,46 @@ const AuthProvider = ({ children }) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
+
+    //password reset
+    const resetPassword = (email) => {
+        return sendPasswordResetEmail(auth, email)
+    }
+    //google login
+    const googleProvider = new GoogleAuthProvider()
+    const googleLogin = () => {
+        setLoading(true)
+        return signInWithPopup(auth, googleProvider)
+    }
+
+    //facebook login
+    const facebookProvider = new FacebookAuthProvider()
+    const facebookLogin = () => {
+        setLoading(true)
+        return signInWithPopup(auth, facebookProvider)
+    }
+
     // currently login user auth state change
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
-            setLoading(false)
+
+            if (currentUser) {
+                const user = { email: currentUser.email };
+                axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data)
+                        setLoading(false)
+                    })
+            }
+            else {
+                axios.post('http://localhost:5000/logout', {}, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data)
+                        setLoading(false)
+                    })
+            }
+
         });
         return () => {
             return unsubscribe()
@@ -42,38 +76,17 @@ const AuthProvider = ({ children }) => {
     const logOut = () => {
         return signOut(auth)
     }
-    //password reset
-    const resetPassword = (email) => {
-        return sendPasswordResetEmail(auth, email)
-    }
-    //google login
-    const googleProvider = new GoogleAuthProvider()
-    const googleLogin = () => {
-        return signInWithPopup(auth, googleProvider)
-    }
-
-    //facebook login
-    const facebookProvider = new FacebookAuthProvider()
-    const facebookLogin = () => {
-        return signInWithPopup(auth, facebookProvider)
-    }
-    //facebook login
-    const githubProvider = new GithubAuthProvider()
-    const githubLogin = () => {
-        return signInWithPopup(auth, githubProvider)
-    }
     const info = {
         user,
+        loading,
         signup,
         updateUser,
         emailVerification,
         loginUser,
         logOut,
-        loading,
         resetPassword,
         googleLogin,
         facebookLogin,
-        githubLogin
     }
     return (
         <AuthContext.Provider value={info}>

@@ -10,7 +10,7 @@ const BrandsDetails = () => {
                 <h4 className='orange text-3xl mb-5'>{brands.length} items founds</h4>
                 <div className='grid grid-cols-5 gap-5'>
                     {
-                        brands.map(brand => <BrandsDetailsCard key={brand._id} brand={brand}></BrandsDetailsCard>)
+                        brands?.map(brand => <BrandsDetailsCard key={brand._id} brand={brand}></BrandsDetailsCard>)
                     }
                 </div>
             </div>

@@ -12,3 +12,29 @@ ul>li:hover>ul {
 ul ul>li:hover>ul {
     display: block;
 }
+
+.category-li:hover .category-title {
+    font-weight: 600;
+}
+
+.sub-category-li:hover .sub-category-title {
+    font-weight: 600;
+}
+
+.subcategory-link:hover .subcategory-title {
+    color: #000 !important;
+    font-weight: 600;
+}
+
+.subcategory-link:hover .subcategory-icon {
+    color: #000 !important;
+    font-weight: 600;
+}
+
+.childcategory-li:hover .childcategory-title {
+    font-weight: 600;
+}
+
+.sub-category-li:hover.sub-category-icon {
+    margin-right: -5px;
+}

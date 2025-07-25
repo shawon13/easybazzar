@@ -1,14 +1,20 @@
-import React, { useContext, useState } from 'react';
+import { useState } from 'react';
 import './Register.css'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../Provider/AuthProvider';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye } from 'react-icons/fa6';
 import { PiEyeClosedThin } from 'react-icons/pi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useAuth from '../../../hooks/useAuth';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
+
+
+
 
 const Register = () => {
-    const { signup, updateUser, emailVerification } = useContext(AuthContext);
+    const { signup, updateUser, emailVerification } = useAuth();
+    const axiosPublic = useAxiosPublic()
     let [type, setType] = useState('password')
     const handleType = () => {
         if (type == 'password') {
@@ -51,14 +57,30 @@ const Register = () => {
         signup(email, password)
             .then(result => {
                 const regUser = result.user
-                console.log(regUser)
-                toast('Successfully Registered');
-                form.reset();
-                navigate('/')
                 updateUser(regUser, name)
                 emailVerification(regUser)
                     .then(() => {
                         toast('Please Check Your Email,Email verification sent!');
+                    });
+
+                const user = {
+                    name: name,
+                    email: email,
+                }
+                //user add database
+                axiosPublic.post('/users', user)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            form.reset();
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'User created successfully.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            navigate('/')
+                        }
                     })
             })
             .catch(error => {
@@ -95,7 +117,7 @@ const Register = () => {
                                     type == 'text' ? <FaRegEye onClick={handleType} className='absolute text-2xl top-9 right-3 cursor-pointer' /> : <PiEyeClosedThin onClick={handleType} className='absolute text-3xl top-8 right-3 cursor-pointer' />
                                 }
                             </div>
-                            <button className='text-white bg-black uppercase font-normal w-full py-3' type="submit">sign up</button>
+                            <button className='cursor-pointer text-white bg-black uppercase font-normal w-full py-3' type="submit">sign up</button>
                         </form>
                     </div>
                 </div>

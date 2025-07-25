@@ -1,43 +1,41 @@
 import './FlashSales.css'
 import FlashSaleCard from './FlashSaleCard/FlashSaleCard';
-import Timer from './Timer/Timer';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { useQuery } from '@tanstack/react-query';
+import useProducts from '../../../hooks/useProducts';
+import { useEffect, useState } from 'react';
 
 const FlashSales = () => {
-    const axiosSecure = useAxiosSecure();
-    //flashsales
-    const { data: flashsales = [] } = useQuery({
-        queryKey: ["flashsales"],
-        queryFn: async () => {
-            const res = await axiosSecure.get('/flashsales');
-            return res.data;
-        }
-    })
+    const [products] = useProducts()
+
+    const [startSales, setStartSales] = useState(0);
+
+    useEffect(() => {
+        const saved = JSON.parse(localStorage.getItem('flashSalesStartIndex'));
+        setStartSales(saved)
+    }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const nextIndex = (startSales + 24) % products.length;
+            setStartSales(nextIndex)
+            localStorage.setItem('flashSalesStartIndex', JSON.stringify(nextIndex))
+        }, 12 * 60 * 60 * 1000);
+        return () => clearInterval(interval)
+    }, [startSales, products])
+    const sales = products.slice(startSales, startSales + 24)
+
+
+
     return (
         <div>
             <div className='flash-sale-banner bg-center bg-no-repeat bg-cover'>
 
             </div>
-            <section className='bg-white h-16 items-center flex'>
-                <div className="container mx-auto px-4">
-                    <div className='flex items-center'>
-                        <div>
-                            <h4 className='text-base font-medium capitalize orangeColor mr-7'>on sale now</h4>
-                        </div>
-                        <div className='flex items-center'>
-                            <h4 className='text-base font-medium text-black mr-2'>Ending in</h4>
-                            <Timer duration={12 * 60 * 60 * 1000} />
-                        </div>
-                    </div>
-                </div>
-            </section>
             <section className='py-8'>
                 <div className="container px-4 mx-auto">
                     <h4></h4>
                     <div className='grid grid-cols-6'>
                         {
-                            flashsales.map(flashsale => <FlashSaleCard key={flashsale.id} flashsale={flashsale}></FlashSaleCard>)
+                            sales.map(flashsale => <FlashSaleCard key={flashsale.id} flashsale={flashsale}></FlashSaleCard>)
                         }
                     </div>
                 </div>

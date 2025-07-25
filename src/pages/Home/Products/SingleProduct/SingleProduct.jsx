@@ -11,6 +11,7 @@ import { CartCount } from '../../../../context/CartCountContext/CartCountContext
 
 const SingleProduct = () => {
     const product = useLoaderData();
+    console.log(product)
     const { updateCartCount } = useContext(CartCount);
     // console.log(product)
     const { current_price, discount, image, name, original_price, rating, star, quantity } = product;
@@ -27,8 +28,6 @@ const SingleProduct = () => {
             setProductQuantity(productQuantity - 1)
         }
     }
-
-
     // add to cart function
     const handleAddToCart = (id) => {
         console.log('click', id)
@@ -80,7 +79,7 @@ const SingleProduct = () => {
                                 </div>
                                 <h5 className='text-gray-400 font-normal'>Brand: <Link className='text-sm'>No Brand</Link></h5>
                             </div>
-                            <hr className='my-3' />
+                            <hr className='my-3 text-gray-200' />
                             <div style={{ marginLeft: '-5px' }} className='flex items-center'>
                                 <TbCurrencyTaka style={{ marginRight: "-2px" }} className='orangeColor text-3xl' />
                                 <p className='orangeColor text-3xl font-normal'>{current_price}</p>
@@ -95,22 +94,22 @@ const SingleProduct = () => {
                             <div className='flex items-center mt-4'>
                                 <span className='text-base text-gray-400 font-normal mr-10'>Quantity</span>
                                 <div className='flex'>
-                                    <button onClick={() => deQuantity(name)} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
+                                    <span onClick={() => deQuantity(name)} style={{ borderColor: 'transparent' }} className="cursor-pointer w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
                                         <FaMinus className='transition-all text-gray-400 text-sm quantity-icon' />
-                                    </button>
+                                    </span>
                                     <input
                                         type="text"
                                         value={productQuantity}
                                         className="text-center w-10"
                                     />
-                                    <button onClick={() => inQuantity(name)} style={{ borderColor: 'transparent' }} className="w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
+                                    <span onClick={() => inQuantity(name)} style={{ borderColor: 'transparent' }} className="cursor-pointer w-10 h-10 p-2.5 bg-gray-100 hover:bg-gray-300 rounded-none quantity-btn flex items-center justify-center">
                                         <FaPlus className='transition-all text-gray-400 text-sm quantity-icon' />
-                                    </button>
+                                    </span>
                                 </div>
                             </div>
                             <div className='mt-8'>
-                                <Link to={`/buynow?id=${product._id}&quantity=${productQuantity}`} className='text-white bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
-                                <button onClick={() => handleAddToCart(product._id)} className='text-white bg-orange capitalize font-normal px-20 py-3 rounded-none'>Add to cart</button>
+                                <Link to={`/buynow?id=${product._id}&quantity=${productQuantity}`} style={{ color: '#fff' }} className=' bg-sky capitalize font-normal px-20 py-4 mr-2.5'>buy now</Link>
+                                <button onClick={() => handleAddToCart(product._id)} className='cursor-pointer text-white bg-orange capitalize font-normal px-20 py-3 rounded-none'>Add to cart</button>
                             </div>
                         </div>
                     </div>
@@ -130,7 +129,7 @@ const SingleProduct = () => {
                                 <h4 className='ml-3 text-base capitalize text-black font-normal'>case on delivery avilable</h4>
                             </div>
                         </div>
-                        <hr className='my-3' />
+                        <hr className='my-3 text-gray-300' />
                         <div>
                             <h5 className='text-sm text-gray-600 capitalize'>service</h5>
                             <div className='flex mt-3'>

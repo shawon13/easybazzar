@@ -10,7 +10,7 @@ const ErrorPage = () => {
                 <p className='mb-5'>
                     <i>{error.statusText || error.message}</i>
                 </p>
-                <Link to='/' className='bg-black text-white py-3 px-4 rounded'>Back to Home</Link>
+                <Link to='/' style={{ color: '#fff' }} className='bg-black py-3 px-4 rounded'>Back to Home</Link>
             </div>
         </div>
     );

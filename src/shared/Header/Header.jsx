@@ -3,7 +3,6 @@ import './Header.css'
 import { MagnifyingGlassIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../../Provider/AuthProvider';
 import { MdOutlineKeyboardArrowRight, MdOutlineStars } from "react-icons/md";
 import { BsEmojiSmile } from "react-icons/bs";
 import { LiaBoxSolid } from "react-icons/lia";
@@ -11,10 +10,11 @@ import { FiHeart } from "react-icons/fi";
 import { HiOutlineArrowLeftStartOnRectangle } from "react-icons/hi2";
 import { IoMdCloseCircleOutline, IoIosArrowDown } from "react-icons/io";
 import { CartCount } from '../../context/CartCountContext/CartCountContext'
+import useAuth from '../../hooks/useAuth'
 
 
 const Header = () => {
-    const { user, logOut } = useContext(AuthContext);
+    const { user, logOut } = useAuth();
     const { cartCount } = useContext(CartCount)
     const [open, setOpen] = useState(false);
     const menuRef = useRef();
@@ -52,7 +52,7 @@ const Header = () => {
                     </div>
                     <div className='w-1/2'>
                         <div className='flex items-center relative'>
-                            <input className='p-3 rounded-lg outline-none' placeholder='Search in Easy Bazaar' type="text" name="" style={{ width: '670px' }} />
+                            <input className='p-3 rounded-lg outline-none border' placeholder='Search in Easy Bazaar' type="text" name="" style={{ width: '670px' }} />
                             <MagnifyingGlassIcon className='w-7 absolute right-4 cursor-pointer' />
                         </div>
                     </div>
@@ -61,7 +61,6 @@ const Header = () => {
                             {
                                 user ? <>
                                     <div onClick={() => setOpen(!open)} className='cursor-pointer ml-5 flex items-center'>
-                                        <img src={user?.photoURL} className='w-12 h-12 rounded-full border' alt="" />
                                         <div className='mx-2'>
                                             <h4 className='text-sm'>Hello, {user?.displayName?.slice(0, 10)}...</h4>
                                             <span className='font-semibold text-base capitalize'>Orders & Account</span>
@@ -78,8 +77,8 @@ const Header = () => {
 
                                     </span>
                                 </> : <>
-                                    <Link to='/login' className='px-6 py-2 rounded-md text-white bg-black'>Login</Link>
-                                    <Link to='/register' className=' ml-6 px-6 py-2 rounded-md text-white bg-black'>Sign Up</Link>
+                                    <Link style={{ color: '#fff' }} to='/login' className='px-6 py-2 rounded-md bg-black'>Login</Link>
+                                    <Link to='/register' style={{ color: '#fff' }} className=' ml-6 px-6 py-2 rounded-md bg-black'>Sign Up</Link>
                                     <span className='ml-6 relative'>
                                         <Link to='/cart' className='text-black'><ShoppingCartIcon className='w-10 cursor-pointer' /></Link>
                                         {

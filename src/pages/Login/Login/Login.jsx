@@ -1,12 +1,13 @@
-import React, { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import './Login.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaFacebookF, FaGithub, FaGooglePlusG } from 'react-icons/fa';
 import { FaRegEye } from 'react-icons/fa6';
 import { PiEyeClosedThin } from 'react-icons/pi';
-import { AuthContext } from '../../../Provider/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SocialLogin from '../../../SocialLogin/SocialLogin';
+import useAuth from '../../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     let [type, setType] = useState('password')
@@ -22,7 +23,7 @@ const Login = () => {
             setType('password')
         }
     }
-    const { loginUser, resetPassword, googleLogin, facebookLogin, githubLogin } = useContext(AuthContext);
+    const { loginUser, resetPassword } = useAuth();
 
     const handleLogin = (event) => {
         event.preventDefault()
@@ -33,9 +34,14 @@ const Login = () => {
             .then(result => {
                 const logUser = result.user;
                 console.log(logUser)
-                toast('Successfully login');
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'User login successfully.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 form.reset()
-                console.log(logUser)
                 navigate(from)
             })
             .catch(error => {
@@ -58,14 +64,7 @@ const Login = () => {
                 console.log(error.message);
             });
     }
-    const handleFacebookLogin = () => {
-        facebookLogin();
-        navigate(from)
-    }
-    const handleGooleLogin = () => {
-        googleLogin();
-        navigate(from)
-    }
+
     return (
         <section className='py-10'>
             <div className='container mx-auto w-1/2 px-4'>
@@ -92,7 +91,7 @@ const Login = () => {
                                 <span onClick={handleResetPassword} className='text-xs font-normal cursor-pointer text-sky-900'>Reset Your Password</span>
                             </div>
                             <div className='mt-3.5'>
-                                <button className='text-white bg-black uppercase font-normal w-full py-3' type="submit">Login</button>
+                                <button className='text-white bg-black uppercase font-normal w-full py-3 cursor-pointer' type="submit">Login</button>
                             </div>
                         </form>
                         <div className='position-relative mt-4'>
@@ -100,14 +99,7 @@ const Login = () => {
                             <p className='or-hr mb-0'></p>
                             <p className='or-hr-two mb-0'></p>
                         </div>
-                        <div className='flex justify-center items-center mt-6'>
-                            <span onClick={handleFacebookLogin} style={{ backgroundColor: '#3b5998' }} className='rounded-full w-10 h-10 flex justify-center items-center mr-3 text-white cursor-pointer'>
-                                <FaFacebookF className='text-xl' />
-                            </span>
-                            <span onClick={handleGooleLogin} style={{ backgroundColor: '#d34836' }} className='rounded-full w-10 h-10 flex justify-center items-center mr-3 text-white cursor-pointer'>
-                                <FaGooglePlusG className='text-2xl' />
-                            </span>
-                        </div>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>

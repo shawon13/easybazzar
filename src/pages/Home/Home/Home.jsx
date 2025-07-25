@@ -6,26 +6,27 @@ import Benefits from '../Benefits/Benefits';
 import Categories from '../Categories/Categories';
 import { Link } from 'react-router-dom';
 import FlashSale from '../FlashSale/FlashSale';
-import Timer from '../FlashSales/Timer/Timer';
 import Products from '../Products/Products';
 import Brands from '../Brands/Brands';
 import {
     useQuery,
 } from '@tanstack/react-query'
-import useAxiosSecure from '../../../hooks/useAxiosSecure'
+import useAxiosPublic from '../../../hooks/useAxiosPublic'
 import useProducts from '../../../hooks/useProducts';
 
 
 const productLoad = 18;
 const Home = () => {
+    //products
+    const [products] = useProducts();
 
     // home banner
-    const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
 
     const { data: banners = [] } = useQuery({
         queryKey: ['banners'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/banners')
+            const res = await axiosPublic.get('/banners')
             return res.data;
         }
     })
@@ -33,28 +34,30 @@ const Home = () => {
     const { data: benefits = [] } = useQuery({
         queryKey: ["benefits"],
         queryFn: async () => {
-            const res = await axiosSecure.get('/benefits');
+            const res = await axiosPublic.get('/benefits');
             return res.data;
         }
     })
-    //flashsales
-    const { data: flashsales = [] } = useQuery({
-        queryKey: ["flashsales"],
-        queryFn: async () => {
-            const res = await axiosSecure.get('/flashsales');
-            return res.data;
-        }
-    })
-    //products
-    const [products] = useProducts()
-    // const { data: products = [] } = useQuery({
-    //     queryKey: ["products"],
-    //     queryFn: async () => {
-    //         const res = await axiosSecure.get('/products');
-    //         return res.data;
-    //     }
-    // })
 
+    //flashSales
+    const [startSales, setStartSales] = useState(0);
+
+    useEffect(() => {
+        const saved = JSON.parse(localStorage.getItem('flashSaleStartIndex'));
+        setStartSales(saved)
+    }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const nextIndex = (startSales + 6) % products.length;
+            setStartSales(nextIndex)
+            localStorage.setItem('flashSaleStartIndex', nextIndex)
+        }, 12 * 60 * 60 * 1000);
+        return () => clearInterval(interval)
+    }, [startSales, products])
+    const sales = products.slice(startSales, startSales + 6)
+
+    //all product
     const [next, setNext] = useState(productLoad);
     const handleLoadMore = () => {
         setNext(next + productLoad)
@@ -106,10 +109,6 @@ const Home = () => {
                                 <div>
                                     <h4 className='text-base font-medium capitalize orangeColor mr-7'>on sale now</h4>
                                 </div>
-                                <div className='flex items-center'>
-                                    <h4 className='text-base font-medium text-black mr-2'>Ending in</h4>
-                                    <Timer duration={12 * 60 * 60 * 1000} />
-                                </div>
                             </div>
                             <div>
                                 <Link to='/flashsales' style={{ borderColor: '#f85606' }} className='orangeColor border py-3 px-3 uppercase font-normal text-sm'>shop more</Link>
@@ -118,7 +117,7 @@ const Home = () => {
                         <div>
                             <div className='flex'>
                                 {
-                                    flashsales.slice(0, 6).map(sale => <FlashSale key={sale.id} sale={sale}></FlashSale>)
+                                    sales.map(sale => <FlashSale key={sale.id} sale={sale}></FlashSale>)
                                 }
                             </div>
                         </div>
@@ -135,15 +134,14 @@ const Home = () => {
                         }
                     </div>
                     <div className='mt-8 text-center'>
-
                         {
 
-                            next < products.length && <button onClick={handleLoadMore} style={{ borderColor: '#f85606', borderRadius: '0px !important' }} className='orangeColor outline-none rounded-none border w-1/4 uppercase font-normal text-sm'>load more</button>
+                            next < products.length && <button onClick={handleLoadMore} style={{ borderColor: '#f85606', borderRadius: '0px !important' }} className='py-3 cursor-pointer orangeColor outline-none rounded-none border w-1/4 uppercase font-normal text-sm'>load more</button>
                         }
                     </div>
                 </div>
             </section>
-            <section className='py-6 mb-12 border border-t-0 border-l-0 border-r-0'>
+            <section className='py-6 mb-12 border border-t-0 border-l-0 border-r-0 border-gray-200'>
                 <div className='container mx-auto px-4'>
                     <div className='relative'>
                         <h3 className='text-center uppercase text-black text-lg font-bold mb-8'>Shop our Top brands</h3>
