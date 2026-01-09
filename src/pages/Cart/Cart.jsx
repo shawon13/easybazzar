@@ -5,14 +5,24 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { CartCount } from '../../context/CartCountContext/CartCountContext';
 import Swal from 'sweetalert2';
+import useAuth from '../../hooks/useAuth'
+
 
 const Cart = () => {
+    const {loading,user}=useAuth();
+    const userEmail=user?.email;
+    if(loading){
+        return <span className="loading loading-spinner loading-xl"></span>
+    }
     const [cartItems, setCartItems] = useState([])
-    console.log(cartItems)
-    const { updateCartCount } = useContext(CartCount);
+    
+    const cartCtx=useContext(CartCount)||{};
+    const {updateCartCount}=cartCtx
+
     useEffect(() => {
         const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-        setCartItems(storedCart)
+        const shoppingCart=storedCart.filter(item=>item.userEmail===userEmail)
+        setCartItems(shoppingCart)
     }, [])
 
 

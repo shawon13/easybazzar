@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-
 .orangeColor {
   color: #f85606;
 }
@@ -20,7 +19,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.menu {
+  --menu-active-fg: initial;
+  --menu-active-bg: initial;
+}
 a {
   font-weight: 500;
   color: #000;
@@ -82,12 +84,483 @@ button:focus-visible {
 .swal2-cancel {
   background-color: #d33;
 }
-
+.slick-dots {
+  bottom: 20px !important;
+}
+.svg-inline--fa {
+  height: 20px !important;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+}
+/* responsive start */
+@media only screen and (min-width: 1536px) {
+  /* category */
+}
+@media only screen and (min-width: 1280px) and (max-width: 1535px) {
+  /* slider */
+}
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+  /* slider */
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  /* slider */
+}
+@media only screen and (min-width: 640px) and (max-width: 767px) {
+  /* slider */
+  .slick-slide {
+    height: 310px !important;
+  }
+}
+@media only screen and (min-width: 561px) and (max-width: 639px) {
+  /* slider */
+  .slider-title {
+    font-size: 36px;
+  }
+  .des {
+    font-size: 27px;
+  }
+  /*product*/
+  .img-size {
+    height: 170px;
+  }
+}
 
+@media only screen and (min-width: 525px) and (max-width: 560px) {
+  .navbar-start {
+    width: 45%;
+  }
+  .navbar-center {
+    width: 45%;
+  }
+  .navbar-end {
+    width: 10%;
+  }
+  .search-bar {
+    width: 244px !important;
+  }
+  .logo {
+    width: 45px !important;
+  }
+  .logo-name {
+    font-size: 14px !important;
+  }
+  /* slider */
+  .slider-btn-box a {
+    font-size: 14px;
+  }
+  .slider-bg-img {
+    height: 270px !important;
+  }
+  .slick-dots {
+    display: none !important;
+  }
+  /* flash sale */
+  .flash-sale-banner {
+    height: 145px;
+  }
+  /*product*/
+  .img-size {
+    height: 160px;
+  }
+  .hr {
+    width: 23%;
+  }
+  .hr-two {
+    width: 23%;
+  }
+  /* login page */
+  .log-reg-box {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 481px) and (max-width: 524px) {
+  .navbar-start {
+    width: 45%;
+  }
+  .navbar-center {
+    width: 45%;
+  }
+  .navbar-end {
+    width: 10%;
+  }
+  .search-bar {
+    width: 218px !important;
+    font-size: 14px;
+  }
+  .mobile-search-bar {
+    display: none;
+  }
+  .logo {
+    width: 41px !important;
+  }
+  .logo-name {
+    font-size: 14px !important;
+  }
+  /* slider */
+  .slider-btn-box a {
+    font-size: 14px;
+  }
+  .slider-bg-img {
+    height: 245px !important;
+  }
+  .slick-dots {
+    display: none !important;
+  }
+  /* benefit */
+  .benefit-title {
+    font-size: 14px;
+  }
+  /* flash sale */
+  .flash-title {
+    font-size: 13px;
+  }
+  .flash-sale-banner {
+    height: 135px;
+  }
+  /*product*/
+  .img-size {
+    height: 150px;
+  }
+  .hr {
+    width: 22%;
+  }
+  .hr-two {
+    width: 22%;
+  }
+  /* single page */
+  .single-img {
+    height: 200px !important;
+  }
+  .single-product-name {
+    font-size: 15px;
+  }
+  .current-price {
+    font-size: 18px;
+  }
+  .taka-icon {
+    font-size: 20px;
+  }
+  .buynow-btn {
+    padding: 13px 24px;
+    font-size: 14px;
+  }
+  .addtocart-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  /* login page */
+  .log-reg-text {
+    text-align: end;
+  }
+  .log-reg-box {
+    width: 90%;
+  }
+  /*section title*/
+  .section-title-w{
+    width:60%!important;
+  }
+}
+@media screen and (min-width: 391px) and (max-width: 480px) {
+  .navbar-start {
+    width: 90%;
+  }
+  .navbar-center {
+    display: none;
+  }
+  .navbar-end {
+    width: 10%;
+  }
+  .logo {
+    width: 48px !important;
+  }
+  .logo-name {
+    font-size: 14px !important;
+  }
+  .mobile-search-bar{
+    display:block;
+  }
+  /* slider */
+  .slider-btn-box {
+    margin-top: 10px;
+  }
+  .slider-btn-box a {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  .slider-bg-img {
+    background-size: cover;
+    height: 215px !important;
+  }
+  .slick-dots {
+    display: none !important;
+  }
+  .slick-slide {
+    height: 215px !important;
+  }
+  .slider-title {
+    margin: auto 0px;
+  }
+  .des {
+    font-size: 16px !important;
+  }
+  /* category */
+  .category-icon-bg {
+    background-color: transparent;
+  }
+  /* benefit */
+  .benefit-img {
+    width: 24px;
+    height: 24px;
+  }
+  .benefit-title {
+    font-size: 14px;
+  }
+  /* flash sale */
+  .flash-title {
+    font-size: 13px;
+  }
+  .flash-sale-banner {
+    height: 115px;
+  }
+  /* products */
+  .products-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .img-size {
+    width: 150px;
+    height: 150px;
+  }
+  .product-title {
+    font-size: 13px;
+  }
+  .product-load-more {
+    width: 35%;
+    font-size: 14px;
+  }
+  .hr {
+    width: 18%;
+  }
+  .hr-two {
+    width: 18%;
+  }
+  /* footer */
+  .footer-des {
+    font-size: 14px;
+  }
+  .title-footer {
+    font-size: 18px;
+  }
+  .footer-li {
+    font-size: 14px;
+  }
+  /* single page */
+  .single-content-box {
+    display: block;
+  }
+  .single-img {
+    width: 100%;
+    height: auto;
+  }
+  .content-box {
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+  /* login page */
+  .log-reg-text {
+    text-align: end;
+  }
+  .log-reg-box{
+    width: 100%;
+  }
+  .log-reg-title {
+    font-size: 14px;
+    text-align: start !important;
+  }
+   /*section title*/
+  .section-title-w{
+    width:70%!important;
+  }
+  /*Admin dashboard*/
+  .dashbord-content-grid{
+    grid-template-columns:1fr;
+  }
+  .orders-statistics-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 390px) {
+  .navbar-start {
+    width: 90%;
+  }
+  .navbar-center {
+    display: none;
+  }
+  .navbar-end {
+    width: 10%;
+  }
+  .logo {
+    width: 48px !important;
+  }
+  .logo-name {
+    font-size: 14px !important;
+  }
+    .mobile-search-bar{
+    display:block;
+  }
+  /* slider */
+  .slider-content-box {
+    padding-left: 70px;
+  }
+  .slider-btn-box {
+    margin-top: 5px;
+  }
+  .slider-btn-box a {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+  .slider-bg-img {
+    background-size: cover;
+    height: 162px !important;
+  }
+  .slick-dots {
+    display: none !important;
+  }
+  .slick-slide {
+    height: 162px !important;
+  }
+  .slider-title {
+    font-size: 24px;
+    margin: auto 0px;
+  }
+  .slick-prev::before,
+  .slick-next::before {
+    font-size: 35px !important;
+  }
+  .des {
+    font-size: 13px;
+  }
+  /* category */
+  .category-name {
+    font-size: 12px;
+  }
+  .category-icon-bg {
+    background-color: transparent;
+  }
+  /* benefit */
+  .benefit-img {
+    width: 24px;
+    height: 24px;
+  }
+  .benefit-title {
+    font-size: 14px;
+  }
+  /* flash sale */
+  .flash-title {
+    font-size: 13px;
+  }
+  .flash-sale-banner {
+    height: 95px;
+  }
+  /* products */
+  .products-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .img-size {
+    height: 150px;
+  }
+  .product-title {
+    font-size: 13px;
+  }
+  .product-load-more {
+    width: 40%;
+    font-size: 13px;
+  }
+  .hr {
+    display: none;
+  }
+  .hr-two {
+    display: none;
+  }
+  /* footer */
+  .footer-des {
+    font-size: 14px;
+  }
+  .title-footer {
+    font-size: 16px;
+  }
+  .footer-li {
+    font-size: 14px;
+  }
+  .footer-logo {
+    width: 48px;
+  }
+  .footer-logo-title {
+    font-size: 16px;
+  }
+  .social-icon {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .swiper-button-next .swiper-button-prev {
+    width: 30px !important;
+    height: 30px !important;
+  }
 
+  /* single page */
+  .single-content-box {
+    display: block;
+  }
+  .single-img {
+    width: 100%;
+    height: auto;
+  }
+  .content-box {
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+  .buynow-btn {
+    padding: 16px 36px;
+    font-size: 14px;
+  }
+  .addtocart-btn {
+    padding: 13px 28px;
+    font-size: 14px;
+  }
+  /* login page */
+  .log-reg-text{
+    text-align: end;
+  }
+  .log-reg-box {
+    width: 100%;
+  }
+  .log-reg-title {
+    font-size: 14px;
+    text-align: start !important;
+  }
+  .name {
+    font-size: 13px;
+  }
+  .email {
+    font-size: 13px;
+  }
+  .password {
+    font-size: 13px;
+  }
+    /*section title*/
+  .section-title-w{
+    width:90%!important;
+  }
+  /*Admin dashboard*/
+  .dashbord-content-grid{
+    grid-template-columns:1fr;
+  }
+  .orders-statistics-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .recharts-legend-wrapper{
+    bottom:-15px!important
+  }
 }

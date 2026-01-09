@@ -16,13 +16,13 @@ const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <AuthProvider>
       <CartCountContext>
         <BuynowContext>
-          <AuthProvider>
             <RouterProvider router={router} />
-          </AuthProvider>
         </BuynowContext>
       </CartCountContext>
+      </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>,
 )

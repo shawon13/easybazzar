@@ -1,30 +1,20 @@
-import { useForm } from "react-hook-form";
-import SectionTitle from "../../../Components/SectionTitle";
-import {
-    useQuery,
-} from '@tanstack/react-query'
+import { useForm } from "react-hook-form";                                                  
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { LuShirt } from "react-icons/lu";
 import Swal from "sweetalert2";
-import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
-
-
-
+import useCategories from "../../../hooks/useCategories"
+import SectionTitle from "../../../Components/SectionTitle"
 const image_hosting_key = import.meta.env.VITE_image_hosting_key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
+
 const AddItems = () => {
     const [isLoading, setLoading] = useState()
     const axiosSecure = useAxiosSecure()
     const axiosPublic = useAxiosPublic();
-    const { data: categories = [] } = useQuery({
-        queryKey: ['categories'],
-        queryFn: async () => {
-            const res = await axiosPublic.get('/categories')
-            return res.data;
-        }
-    })
+
+   const [categories]=useCategories()
     //category
     const categoriesId = categories.flatMap(main =>
         main.sub_categories.map(sub => ({
@@ -52,7 +42,7 @@ const AddItems = () => {
             const productItem = {
                 product_id: data.product_id,
                 name: data.name,
-                image: res.data.data.dispaly_uri,
+                image: res.data?.data?.dispaly_url,
                 original_price: data.original_price,
                 current_price: data.current_price,
                 discount: data.discount,
@@ -67,7 +57,7 @@ const AddItems = () => {
                 reset();
                 setLoading(false)
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "success",
                     title: `${data.name} is added to the product`,
                     showConfirmButton: false,
@@ -80,15 +70,15 @@ const AddItems = () => {
     }
     return (
         <section className='py-6'>
-            <div className="container px-4 mx-auto w-11/12">
+            <div className="container px-4 mx-auto">
                 <SectionTitle heading={"what's new?"} subHeading={'add an item??'}></SectionTitle>
-                <div className="overflow-x-auto border border-base-content/5 bg-base-100 p-7 h-auto w-[800px] mx-auto">
+                <div className="overflow-x-auto border border-base-content/5 bg-base-100 p-7 h-auto mx-auto">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <fieldset className="fieldset">
                             <legend className="fieldset-legend text-base">Product name*</legend>
                             <input {...register('name', { required: true })} type="text" className="input w-full" placeholder="product name" />
                         </fieldset>
-                        <div className="flex gap-3">
+                        <div className="sm:flex gap-3">
                             <fieldset className="fieldset w-full">
                                 <legend className="fieldset-legend text-base">Product id*</legend>
                                 <input {...register('product_id', { required: true })} type="text" className="input w-full" placeholder="product_id" />
@@ -98,7 +88,7 @@ const AddItems = () => {
                                 <input {...register('original_price', { required: true })} type="number" className="input w-full" placeholder="original_price" />
                             </fieldset>
                         </div>
-                        <div className="flex gap-3">
+                        <div className="sm:flex gap-3">
                             <fieldset className="fieldset w-full">
                                 <legend className="fieldset-legend text-base">Product current price*</legend>
                                 <input {...register('current_price', { required: true })} type="number" className="input w-full" placeholder="current_price" />
@@ -108,7 +98,7 @@ const AddItems = () => {
                                 <input {...register('discount', { required: true })} type="text" className="input w-full" placeholder="-discount%" />
                             </fieldset>
                         </div>
-                        <div className="flex gap-3">
+                        <div className="sm:flex gap-3">
                             <fieldset className="fieldset w-full">
                                 <legend className="fieldset-legend text-base">Product rating*</legend>
                                 <input {...register('rating', { required: true })} type="text" className="input w-full" placeholder="rating" />
@@ -118,7 +108,7 @@ const AddItems = () => {
                                 <input {...register('star', { required: true })} type="text" className="input w-full" placeholder="star" />
                             </fieldset>
                         </div>
-                        <div className="flex gap-3">
+                        <div className="sm:flex gap-3">
                             <fieldset className="fieldset w-full">
                                 <legend className="fieldset-legend text-base">Product quantity*</legend>
                                 <input {...register('quantity', { required: true })} type="number" className="input w-full" value={1} placeholder="quantity" />

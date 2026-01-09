@@ -1,40 +1,40 @@
 .sub-menu-wrap {
-    transition: max-height 0.5s;
+  transition: max-height 0.5s;
 }
 
 .sub-menu-wrap::before {
-    content: '';
-    position: absolute;
-    top: 5px;
-    left: 55px;
-    width: 25px;
-    height: 25px;
-    transform: rotate(45deg);
-    background-color: black;
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 55px;
+  width: 25px;
+  height: 25px;
+  transform: rotate(45deg);
+  background-color: black;
 }
 
 .inactive-menu {
-    max-height: 0px;
-    overflow: hidden;
+  max-height: 0px;
+  overflow: hidden;
 }
 
 .active-menu {
-    max-width: 400px;
+  max-width: 400px;
 }
 
 .menu-arrow {
-    font-size: 18px;
-    transition: transform 0.5s;
+  font-size: 18px;
+  transition: transform 0.5s;
 }
 
 .sub-menu-link:hover .menu-arrow {
-    transform: translateX(5px);
+  transform: translateX(5px);
 }
 
 .sub-menu-link:hover p {
-    font-weight: 500 !important;
+  font-weight: 500 !important;
 }
 
 .sub-menu-link {
-    cursor: pointer;
+  cursor: pointer;
 }

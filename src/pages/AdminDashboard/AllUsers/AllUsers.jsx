@@ -59,9 +59,9 @@ const AllUsers = () => {
 
     return (
         <section className='py-6'>
-            <div className="container px-4 mx-auto w-11/12">
+            <div className="container px-4 mx-auto">
                 <SectionTitle heading={'manage all users'} subHeading={'how many??'}></SectionTitle>
-                <h2 className="text-3xl font-semibold my-5">All Users({users.length})</h2>
+                <h2 className="text-2xl lg:text-3xl font-semibold my-5">All Users({users.length})</h2>
                 <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                     <table className="table">
                         {/* head */}
@@ -85,10 +85,10 @@ const AllUsers = () => {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <th>
-                                        {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="btn rounded-full bg-red-600 text-white w-[50px] h-[50px] p-0 hover:bg-red-600 hover:text-white"><FaUsers className='text-2xl' /></button>}
+                                        {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="btn rounded-full bg-red-600 text-white w-[40px] sm:w-[50px] h-[40px] sm:h-[50px] p-0 hover:bg-red-600 hover:text-white"><FaUsers className='text-xl sm:text-2xl' /></button>}
                                     </th>
                                     <th>
-                                        <button onClick={() => handleUserDelete(user)} className="btn rounded-full bg-red-600 text-white w-[50px] h-[50px] p-0 hover:bg-red-600 hover:text-white"><MdOutlineDeleteForever className='text-2xl' /></button>
+                                        <button onClick={() => handleUserDelete(user)} className="btn rounded-full bg-red-600 text-white w-[40px] sm:w-[50px] h-[40px] sm:h-[50px] p-0 hover:bg-red-600 hover:text-white"><MdOutlineDeleteForever className='text-xl sm:text-2xl' /></button>
                                     </th>
                                 </tr>)
                             }

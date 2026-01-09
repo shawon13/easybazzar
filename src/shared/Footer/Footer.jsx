@@ -107,34 +107,51 @@ const Footer = () => {
             "path": "/privacy-policy"
         }
     ]
+    const socialIcons = [
+  {
+    icon: faFacebook,
+  },
+  {
+    icon: faGlobe,
+  },
+  {
+    icon: faYoutube,
+  },
+  {
+    icon: faTwitter,
+  },
+  {
+    icon: faInstagram,
+  }
+]
     return (
         <section id='footer' className='bg-slate-500 py-12'>
-            <div className="mx-auto container">
-                <div className='flex'>
-                    <div className='w-11/12'>
+            <div className="mx-auto container px-4">
+                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+                    <div className=''>
                         <Link to='/' className='flex items-center cursor-pointer'>
                             <img
-                                className="w-16"
+                                className="w-14 md:w-16 footer-logo"
                                 src={logo}
                                 alt="Your Company"
                             />
-                            <h2 className='text-3xl font-bold ml-3 text-white'>Easy Bazaar</h2>
+                            <h2 className='text-xl sm:text-2xl xl:text-3xl font-medium ml-3 text-white footer-logo-title'>Easy Bazaar</h2>
                         </Link>
-                        <p className='text-white px-4 mt-6'>Discover the ease and convenience of shopping with Easy Bazaar. Whether you are a seasoned online shopper or new to the world of e-commerce, we invite you to experience the difference for yourself. Welcome to Easy Bazaar, where shopping is always a breeze!</p>
+                        <p className='text-base text-white mt-4 footer-des'>Discover the ease and convenience of shopping with Easy Bazaar. Whether you are a seasoned online shopper or new to the world of e-commerce, we invite you to experience the difference for yourself. Welcome to Easy Bazaar, where shopping is always a breeze!</p>
                     </div>
-                    <div className="w-1/2">
+                    <div className='flex justify-end sm:justify-center md:justify-end xl:justify-center'>
                         <div className='text-white'>
-                            <h4 className='text-xl font-medium capitalize'>categories</h4>
+                            <h4 className='text-xl font-bold capitalize title-footer'>categories</h4>
                             <ul className='p-0'>
                                 {
                                     categories.map(category => <FooterCategory key={category.id} category={category}></FooterCategory>)
                                 }
                             </ul>
                         </div>
-                    </div>
-                    <div className="w-1/2">
+                    </div> 
+                    <div className='flex md:justify-end xl:justify-center'>
                         <div className='text-white'>
-                            <h4 className='text-xl font-medium capitalize'>customer service</h4>
+                            <h4 className='text-xl font-bold capitalize title-footer'>customer service</h4>
                             <ul className='p-0'>
                                 {
                                     services.map(service => <FooterServices key={service.id} service={service}></FooterServices>)
@@ -142,23 +159,32 @@ const Footer = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="w-1/2">
+                    <div className='flex justify-end md:justify-start'>
+                      <div>
                         <div className='text-white'>
-                            <h4 className='text-xl font-medium mb-4'>Payment Methods</h4>
-                            <div className='grid grid-cols-4 gap-4'>
+                            <h4 className='text-xl font-bold mb-4 title-footer'>Payment Methods</h4>
+                            <div className='grid grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3 w-fit'>
                                 {
                                     payments.map(methods => <Payments key={methods.id} methods={methods}></Payments>)
                                 }
                             </div>
                         </div>
                         <div className='text-white text-sm-center text-lg-start mt-5'>
-                            <h4 className='text-xl font-medium mb-3'>Follow Us</h4>
-                            <FontAwesomeIcon className='border border-1 p-2 rounded-full' style={{ width: '20px', height: '20px' }} icon={faFacebook} />
-                            <FontAwesomeIcon className='border border-1 p-2 rounded-full ms-3' style={{ width: '20px', height: '20px' }} icon={faGlobe} />
-                            <FontAwesomeIcon className='border border-1 p-2 rounded-full ms-3' style={{ width: '20px', height: '20px' }} icon={faYoutube} />
-                            <FontAwesomeIcon className='border border-1 p-2 rounded-full ms-3' style={{ width: '20px', height: '20px' }} icon={faTwitter} />
-                            <FontAwesomeIcon className='border border-1 p-2 rounded-full ms-3' style={{ width: '20px', height: '20px' }} icon={faInstagram} />
+                            <h4 className='text-xl font-bold mb-3 title-footer'>Follow Us</h4>
+                           <div className='grid grid-cols-4 sm:grid-cols-5 gap-3 w-fit social-icon'>
+                           {
+                            socialIcons.map((item,index)=>(
+                                <FontAwesomeIcon
+                                        key={index}
+                                        className='border border-1 p-2 rounded-full w-[20px]'
+                                        icon={item.icon}
+                                       
+                                    />
+                            ))
+                           }
+                           </div>
                         </div>
+                      </div>
                     </div>
                 </div>
             </div>
