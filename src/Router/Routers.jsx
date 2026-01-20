@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         path: "/product/:name",
         element: <SingleProduct />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/product/${params.name}`),
+          fetch(`https://easybazzar-server.vercel.app/product/${params.name}`),
       },
       {
         path: "/buynow",
@@ -51,14 +51,16 @@ const router = createBrowserRouter([
         path: "/categories/:category_id",
         element: <SubCategoryPage></SubCategoryPage>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/categories/${params.category_id}`),
+          fetch(
+            `https://easybazzar-server.vercel.app/categories/${params.category_id}`,
+          ),
       },
       {
         path: "/categories/childcategory/:product_id",
         element: <ChildCategoryPage></ChildCategoryPage>,
         loader: ({ params }) =>
           fetch(
-            `http://localhost:5000/categories/childcategory/${params.product_id}`
+            `https://easybazzar-server.vercel.app/categories/childcategory/${params.product_id}`,
           ),
       },
       {
@@ -69,7 +71,9 @@ const router = createBrowserRouter([
         path: "/brandsProducts/:brands_id",
         element: <BrandsDetails></BrandsDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/brandsProducts/${params.brands_id}`),
+          fetch(
+            `https://easybazzar-server.vercel.app/brandsProducts/${params.brands_id}`,
+          ),
       },
       {
         path: "/login",
@@ -145,7 +149,7 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/product/${params.id}`),
+          fetch(`https://easybazzar-server.vercel.app/product/${params.id}`),
       },
     ],
   },
